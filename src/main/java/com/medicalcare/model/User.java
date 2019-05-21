@@ -1,7 +1,12 @@
 package com.medicalcare.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table( name = "USER_TABLE")
 public class User {
 
+    @Id @GeneratedValue
     private long id;
     private String username;
     private String password;
@@ -11,6 +16,7 @@ public class User {
     private String address;
     private String address2;
     private String role;
+    @Lob
     private byte[] photo;
 
     public User() {

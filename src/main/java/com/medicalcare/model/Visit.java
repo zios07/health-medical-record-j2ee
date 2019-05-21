@@ -1,11 +1,18 @@
 package com.medicalcare.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table( name = "VISIT_TABLE")
 public class Visit {
 
+    @Id
+    @GeneratedValue
     private long id;
+    @ManyToOne
     private Patient patient;
+    @ManyToOne
     private Doctor doctor;
     private Date date;
     private String node;

@@ -11,7 +11,7 @@ public class UserService implements IUserService {
 
     @Override
     public User createUser(User user) {
-        return user;
+        return userDao.saveUser(user);
     }
 
     @Override

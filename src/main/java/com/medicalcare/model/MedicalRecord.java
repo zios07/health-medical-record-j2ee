@@ -1,7 +1,16 @@
 package com.medicalcare.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table( name = "MEDICAL_RECORD_TABLE")
 public class MedicalRecord {
 
+    @Id
+    @GeneratedValue
     private long id;
     private String bloodGroup;
     private String allergies;

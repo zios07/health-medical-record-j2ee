@@ -1,10 +1,15 @@
 package com.medicalcare.model;
 
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table( name = "PATIENT_TABLE")
 public class Patient extends User {
 
+    @OneToMany
     private List<Visit> visits;
+    @OneToOne(cascade = CascadeType.ALL)
     private MedicalRecord medicalRecord;
 
     public Patient() {

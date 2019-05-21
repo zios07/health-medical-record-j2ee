@@ -1,5 +1,10 @@
 package com.medicalcare.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table( name = "DOCTOR_TABLE")
 public class Doctor extends User {
 
     private String speciality;
