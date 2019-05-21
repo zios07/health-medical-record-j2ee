@@ -24,15 +24,15 @@
                         <p class="text-uppercase pull-center"> Create an Account</p>
                         <div class="form-group">
                             <input type="text" name="username" id="username" class="form-control form-control-sm"
-                                   placeholder="username">
+                                   placeholder="username" required>
                         </div>
                         <div class="form-group">
                             <input type="password" name="password" id="password" class="form-control form-control-sm"
-                                   placeholder="Password">
+                                   placeholder="Password" required>
                         </div>
                         <div class="form-group">
                             <input type="password" name="password2" id="password2" class="form-control form-control-sm"
-                                   placeholder="Password confirmation">
+                                   placeholder="Password confirmation" required>
                         </div>
 
                         <div class="form-group">
@@ -76,11 +76,11 @@
 
                         <div class="form-group">
                             <input type="email" name="username" id="lgUsername" class="form-control form-control-sm"
-                                   placeholder="username">
+                                   placeholder="username" required>
                         </div>
                         <div class="form-group">
                             <input type="password" name="password" id="lgPassword" class="form-control form-control-sm"
-                                   placeholder="Password">
+                                   placeholder="Password" required>
                         </div>
                         <div>
                             <input type="hidden" name="mode" value="login">
