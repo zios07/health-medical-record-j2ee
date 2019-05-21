@@ -6,7 +6,6 @@ import com.medicalcare.model.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import javax.persistence.OneToOne;
 import java.util.List;
 
 public class UserDao implements IUserDao {
