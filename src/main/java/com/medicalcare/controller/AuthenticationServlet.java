@@ -18,19 +18,27 @@ public class AuthenticationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String page = "/patient-details.jsp";
         String mode = request.getParameter("mode");
         User user = null;
         if (mode != null) {
             if (mode.equals("register")) {
                 // registration business
                 user = userService.createUser(populateUser(request));
+                request.removeAttribute("error");
             } else {
                 // login business
                 user = userService.authenticateUser(populateUser(request));
+                if(user == null) {
+                    request.setAttribute("error", "Login error");
+                    page = "/index.jsp";
+                }
             }
         }
-        request.setAttribute("username", user.getUsername());
-        request.getServletContext().getRequestDispatcher("/welcome.jsp").forward(request, response);
+        if(user != null) {
+            request.setAttribute("username", user.getUsername());
+        }
+        request.getServletContext().getRequestDispatcher(page).forward(request, response);
     }
 
     private User populateUser(HttpServletRequest request) {

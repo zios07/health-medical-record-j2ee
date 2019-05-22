@@ -55,4 +55,21 @@ public class UserDao implements IUserDao {
             return session.createQuery("from User", User.class).list();
         }
     }
+
+    @Override
+    public User getUserByUsername(String username) {
+        Transaction transaction = null;
+        User user = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            user = (User) session.createQuery("select u from User u where u.username = :username")
+                    .setParameter("username", username)
+                    .list().get(0);
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return user;
+    }
 }

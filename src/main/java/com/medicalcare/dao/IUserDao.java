@@ -11,4 +11,6 @@ public interface IUserDao {
     User updateUser(User user);
 
     List<User> getUsers();
+
+    User getUserByUsername(String username);
 }

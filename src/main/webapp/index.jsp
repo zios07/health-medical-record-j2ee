@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,10 +13,24 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+
+    <style>
+        .alert {
+            font-size: 0.8em;
+            margin-bottom: 30px;
+        }
+
+        .title-container {
+            margin: 50px;
+        }
+    </style>
 </head>
 
 <body>
 <div class="container-fluid">
+    <div class="title-container">
+        <h1 align="center">Medical health recoreds application</h1>
+    </div>
     <div class="container">
 
         <div class="row">
@@ -75,16 +91,24 @@
                         <p class="text-uppercase"> Login using your account</p>
 
                         <div class="form-group">
-                            <input type="email" name="username" id="lgUsername" class="form-control form-control-sm"
+                            <input type="text" name="username" id="lgUsername" class="form-control form-control-sm"
                                    placeholder="username" required>
                         </div>
                         <div class="form-group">
                             <input type="password" name="password" id="lgPassword" class="form-control form-control-sm"
                                    placeholder="Password" required>
                         </div>
+
                         <div>
                             <input type="hidden" name="mode" value="login">
                             <input type="submit" class="btn btn-sm btn-outline-primary" value="Sign In">
+                        </div>
+                        <div>
+                            <c:if test="${not empty error}">
+                                <span class="alert alert-danger">
+                                    <c:out value="Login error"/>
+                                </span>
+                            </c:if>
                         </div>
 
                     </fieldset>

@@ -21,6 +21,10 @@ public class UserService implements IUserService {
 
     @Override
     public User authenticateUser(User user) {
-        return user;
+        User u = userDao.getUserByUsername(user.getUsername());
+        if (u != null && u.getPassword().equals(user.getPassword())) {
+            return u;
+        }
+        return null;
     }
 }

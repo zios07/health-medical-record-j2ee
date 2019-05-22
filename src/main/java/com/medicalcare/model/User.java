@@ -8,10 +8,12 @@ public class User {
 
     @Id @GeneratedValue
     private long id;
+    @Column(unique = true)
     private String username;
     private String password;
     private String firstName;
     private String lastName;
+    @Column(unique = true)
     private String email;
     private String address;
     private String address2;
