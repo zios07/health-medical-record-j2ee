@@ -12,6 +12,6 @@ import java.io.PrintWriter;
 public class HomeServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getServletContext().getRequestDispatcher("index.jsp").forward(request, response);
+        request.getServletContext().getRequestDispatcher("/views/index.jsp").forward(request, response);
     }
 }
