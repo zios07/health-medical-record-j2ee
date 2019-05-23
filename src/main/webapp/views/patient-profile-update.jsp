@@ -29,15 +29,14 @@
 <body>
 <div class="container-fluid">
     <div class="title-container">
-        <h1 align="center">Medical health recoreds application</h1>
+        <h1 align="center">Please complete updating your profile, ${ patientName}</h1>
     </div>
     <div class="container">
 
         <div class="row">
             <div class="col-md-5">
-                <form role="form" action="/auth" method="post">
+                <form role="form" action="/patient-profile" method="post">
                     <fieldset>
-                        <p class="text-uppercase pull-center"> Create an Account</p>
                         <div class="form-group">
                             <input type="text" name="username" id="username" class="form-control form-control-sm"
                                    placeholder="username" required>
@@ -77,6 +76,15 @@
                             <input type="hidden" name="mode" value="register">
                             <input type="submit" class="btn btn-sm btn-outline-primary" value=" Register">
                         </div>
+                        <br>
+                        <div>
+                            <c:if test="${not empty errorPassword}">
+                                <span class="alert alert-danger">
+                                    <c:out value="${ errorPassword}"/>
+                                </span>
+                            </c:if>
+                        </div>
+
                     </fieldset>
                 </form>
             </div>
@@ -85,35 +93,6 @@
                 <!-------null------>
             </div>
 
-            <div class="col-md-5">
-                <form role="form" action="/auth" method="post">
-                    <fieldset>
-                        <p class="text-uppercase"> Login using your account</p>
-
-                        <div class="form-group">
-                            <input type="text" name="username" id="lgUsername" class="form-control form-control-sm"
-                                   placeholder="username" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" name="password" id="lgPassword" class="form-control form-control-sm"
-                                   placeholder="Password" required>
-                        </div>
-
-                        <div>
-                            <input type="hidden" name="mode" value="login">
-                            <input type="submit" class="btn btn-sm btn-outline-primary" value="Sign In">
-                        </div>
-                        <div>
-                            <c:if test="${not empty error}">
-                                <span class="alert alert-danger">
-                                    <c:out value="Login error"/>
-                                </span>
-                            </c:if>
-                        </div>
-
-                    </fieldset>
-                </form>
-            </div>
         </div>
     </div>
 </div>

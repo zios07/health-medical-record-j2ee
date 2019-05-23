@@ -18,20 +18,27 @@ public class AuthenticationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page = "/patient-details.jsp";
+        String page = "/views/patient-details.jsp";
         String mode = request.getParameter("mode");
         User user = null;
         if (mode != null) {
             if (mode.equals("register")) {
                 // registration business
-                user = userService.createUser(populateUser(request));
-                request.removeAttribute("error");
+                if(request.getParameter("password").equals(request.getParameter("password2"))) {
+                    user = userService.createUser(populateUser(request));
+                    request.removeAttribute("error");
+                    request.removeAttribute("errorPassword");
+                } else {
+                    request.setAttribute("errorPassword", "Password and confirmation should match");
+                    page = "/views/index.jsp";
+                }
+
             } else {
                 // login business
                 user = userService.authenticateUser(populateUser(request));
                 if(user == null) {
-                    request.setAttribute("error", "Login error");
-                    page = "/index.jsp";
+                    request.setAttribute("error", "Invalid username/password");
+                    page = "/views/index.jsp";
                 }
             }
         }
