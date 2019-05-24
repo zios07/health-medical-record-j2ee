@@ -24,7 +24,11 @@ public class AuthenticationServlet extends HttpServlet {
         if (mode != null) {
             if (mode.equals("register")) {
                 // registration business
+<<<<<<< HEAD
                 if (request.getParameter("password").equals(request.getParameter("password2"))) {
+=======
+                if(request.getParameter("password").equals(request.getParameter("password2"))) {
+>>>>>>> 6a30314744053d300d4a4e901b048a2755084c14
                     user = userService.createUser(populateUser(request));
                     request.removeAttribute("error");
                     request.removeAttribute("errorPassword");
@@ -36,7 +40,11 @@ public class AuthenticationServlet extends HttpServlet {
             } else {
                 // login business
                 user = userService.authenticateUser(populateUser(request));
+<<<<<<< HEAD
                 if (user == null) {
+=======
+                if(user == null) {
+>>>>>>> 6a30314744053d300d4a4e901b048a2755084c14
                     request.setAttribute("error", "Invalid username/password");
                     page = "/views/index.jsp";
                 }
