@@ -17,13 +17,14 @@ public class User {
     private String address;
     private String address2;
     private String role;
+    private boolean profileUpdated;
     @Lob
     private byte[] photo;
 
     public User() {
     }
 
-    public User(long id, String username, String password, String firstName, String lastName, String email, String address, String address2, String role, byte[] photo) {
+    public User(long id, String username, String password, String firstName, String lastName, String email, String address, String address2, String role, byte[] photo, boolean profileUpdated) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -34,6 +35,7 @@ public class User {
         this.address2 = address2;
         this.role = role;
         this.photo = photo;
+        this.profileUpdated = profileUpdated;
     }
 
     public long getId() {
@@ -114,5 +116,13 @@ public class User {
 
     public void setPhoto(byte[] photo) {
         this.photo = photo;
+    }
+
+    public boolean isProfileUpdated() {
+        return profileUpdated;
+    }
+
+    public void setProfileUpdated(boolean profileUpdated) {
+        this.profileUpdated = profileUpdated;
     }
 }
