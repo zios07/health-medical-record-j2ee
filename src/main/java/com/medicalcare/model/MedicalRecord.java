@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table( name = "MEDICAL_RECORD_TABLE")
+@Table(name = "MEDICAL_RECORD_TABLE")
 public class MedicalRecord {
 
     @Id
@@ -15,18 +15,17 @@ public class MedicalRecord {
     private String bloodGroup;
     private String allergies;
     private String medicines;
-    private String height;
-    private String weight;
+    private Double height;
+    private Double weight;
     private boolean smoker;
     private String alcoholConsumption;
-    private String[] chronicDiseases;
-    private String[] actualDiseases;
+    private String chronicDiseases;
+    private String actualDiseases;
 
     public MedicalRecord() {
     }
 
-    public MedicalRecord(long id, String bloodGroup, String allergies, String medicines, String height, String weight, boolean smoker, String alcoholConsumption, String[] chronicDiseases, String[] actualDiseases) {
-        this.id = id;
+    public MedicalRecord(String bloodGroup, String allergies, String medicines, Double height, Double weight, boolean smoker, String alcoholConsumption, String chronicDiseases, String actualDiseases) {
         this.bloodGroup = bloodGroup;
         this.allergies = allergies;
         this.medicines = medicines;
@@ -70,19 +69,19 @@ public class MedicalRecord {
         this.medicines = medicines;
     }
 
-    public String getHeight() {
+    public Double getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(Double height) {
         this.height = height;
     }
 
-    public String getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
@@ -102,19 +101,19 @@ public class MedicalRecord {
         this.alcoholConsumption = alcoholConsumption;
     }
 
-    public String[] getChronicDiseases() {
+    public String getChronicDiseases() {
         return chronicDiseases;
     }
 
-    public void setChronicDiseases(String[] chronicDiseases) {
+    public void setChronicDiseases(String chronicDiseases) {
         this.chronicDiseases = chronicDiseases;
     }
 
-    public String[] getActualDiseases() {
+    public String getActualDiseases() {
         return actualDiseases;
     }
 
-    public void setActualDiseases(String[] actualDiseases) {
+    public void setActualDiseases(String actualDiseases) {
         this.actualDiseases = actualDiseases;
     }
 }
