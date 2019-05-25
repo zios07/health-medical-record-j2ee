@@ -29,7 +29,7 @@
 <body>
 <div class="container-fluid">
     <div class="title-container">
-        <h1 align="center">Please complete updating your profile, ${ patientName}</h1>
+        <h1 align="center">Please complete updating your profile, ${ username}</h1>
     </div>
     <div class="container">
 

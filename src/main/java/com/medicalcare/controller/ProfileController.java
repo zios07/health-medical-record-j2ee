@@ -1,16 +1,23 @@
 package com.medicalcare.controller;
 
+import com.medicalcare.metier.IPatientService;
+import com.medicalcare.metier.impl.PatientService;
 import com.medicalcare.model.MedicalRecord;
+import com.medicalcare.model.Patient;
+import com.medicalcare.model.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/patient-profile")
 public class ProfileController extends HttpServlet {
+
+    private IPatientService patientService = new PatientService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -19,9 +26,17 @@ public class ProfileController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String page = "";
+        String page = "/views/patient-home.jsp";
         MedicalRecord medicalRecord = populateMedicalRecordFromRequest(req);
-
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("connectedUser");
+        if(user != null) {
+            Patient patient = patientService.getByUsername(user.getUsername());
+            patient.setMedicalRecord(medicalRecord);
+            patient.setProfileUpdated(true);
+            patient = patientService.updatePatient(patient);
+            session.setAttribute("connectedPatient", patient);
+        }
         req.getServletContext().getRequestDispatcher(page).forward(req, resp);
     }
 

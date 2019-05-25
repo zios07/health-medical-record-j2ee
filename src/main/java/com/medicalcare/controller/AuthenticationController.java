@@ -1,7 +1,10 @@
 package com.medicalcare.controller;
 
+import com.medicalcare.metier.IPatientService;
 import com.medicalcare.metier.IUserService;
+import com.medicalcare.metier.impl.PatientService;
 import com.medicalcare.metier.impl.UserService;
+import com.medicalcare.model.Patient;
 import com.medicalcare.model.User;
 
 import javax.servlet.ServletException;
@@ -9,23 +12,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/auth")
-public class AuthenticationServlet extends HttpServlet {
+public class AuthenticationController extends HttpServlet {
 
     private IUserService userService = new UserService();
+    private IPatientService patientService = new PatientService();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page = "/views/patient-details.jsp";
+        String page = "/views/patient-home.jsp";
         String mode = request.getParameter("mode");
+        String userType = request.getParameter("usertype");
         User user = null;
         if (mode != null) {
             if (mode.equals("register")) {
                 // registration business
                 if (request.getParameter("password").equals(request.getParameter("password2"))) {
-                    user = userService.createUser(populateUser(request));
+                    user = patientService.createPatient(new Patient(populateUser(request), null, null));
                     request.removeAttribute("error");
                     request.removeAttribute("errorPassword");
                 } else {
@@ -42,10 +48,19 @@ public class AuthenticationServlet extends HttpServlet {
                 }
             }
         }
+
+        // Redirection business logic
         if (user != null) {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("connectedUser", user);
             request.setAttribute("username", user.getUsername());
-            if (!user.isProfileUpdated()) {
-                page = "/views/patient-profile-update.jsp";
+            if (user.getRole().equals("PATIENT")) {
+                if (!user.isProfileUpdated())
+                    page = "/views/patient-profile-update.jsp";
+            } else if (user.getRole().equals("DOCTOR")) {
+                page = "/views/doctor-home.jsp";
+            } else {
+                page = "/views/admin-home.jsp";
             }
         }
         request.getServletContext().getRequestDispatcher(page).forward(request, response);

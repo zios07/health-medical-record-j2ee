@@ -9,12 +9,17 @@ public class Doctor extends User {
 
     private String speciality;
 
-    public Doctor(String speciality) {
+    public Doctor() {
+
+    }
+
+    public Doctor(User u, String speciality) {
+        super(u);
         this.speciality = speciality;
     }
 
-    public Doctor(long id, String username, String password, String firstName, String lastName, String email, String address, String address2, String role, byte[] photo, String speciality, boolean profileUpdated) {
-        super(id, username, password, firstName, lastName, email, address, address2, role, photo, profileUpdated);
+    public Doctor(String username, String password, String firstName, String lastName, String email, String address, String address2, String role, byte[] photo, String speciality, boolean profileUpdated) {
+        super(username, password, firstName, lastName, email, address, address2, role, photo, profileUpdated);
         this.speciality = speciality;
     }
 

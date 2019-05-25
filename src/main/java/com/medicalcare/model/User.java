@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table( name = "USER_TABLE")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User {
 
     @Id @GeneratedValue
@@ -24,8 +25,12 @@ public class User {
     public User() {
     }
 
-    public User(long id, String username, String password, String firstName, String lastName, String email, String address, String address2, String role, byte[] photo, boolean profileUpdated) {
-        this.id = id;
+
+    public User(User u) {
+        this(u.username, u.password, u.firstName, u.lastName, u.email, u.address, u.address2, u.role, u.photo, u.profileUpdated);
+    }
+
+    public User(String username, String password, String firstName, String lastName, String email, String address, String address2, String role, byte[] photo, boolean profileUpdated) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;

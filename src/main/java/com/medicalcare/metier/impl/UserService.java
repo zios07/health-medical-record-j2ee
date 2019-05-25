@@ -3,6 +3,8 @@ package com.medicalcare.metier.impl;
 import com.medicalcare.dao.IUserDao;
 import com.medicalcare.dao.impl.UserDao;
 import com.medicalcare.metier.IUserService;
+import com.medicalcare.model.Doctor;
+import com.medicalcare.model.Patient;
 import com.medicalcare.model.User;
 
 public class UserService implements IUserService {
@@ -16,7 +18,7 @@ public class UserService implements IUserService {
 
     @Override
     public User updateUser(User user) {
-        return user;
+        return userDao.updateUser(user);
     }
 
     @Override
@@ -27,4 +29,5 @@ public class UserService implements IUserService {
         }
         return null;
     }
+
 }

@@ -16,6 +16,23 @@ public class Patient extends User {
 
     }
 
+    public Patient(List<Visit> visits, MedicalRecord medicalRecord) {
+        this.visits = visits;
+        this.medicalRecord = medicalRecord;
+    }
+
+    public Patient(User u, List<Visit> visits, MedicalRecord medicalRecord) {
+        super(u);
+        this.visits = visits;
+        this.medicalRecord = medicalRecord;
+    }
+
+    public Patient(String username, String password, String firstName, String lastName, String email, String address, String address2, String role, byte[] photo, boolean profileUpdated, List<Visit> visits, MedicalRecord medicalRecord) {
+        super(username, password, firstName, lastName, email, address, address2, role, photo, profileUpdated);
+        this.visits = visits;
+        this.medicalRecord = medicalRecord;
+    }
+
     public List<Visit> getVisits() {
         return visits;
     }

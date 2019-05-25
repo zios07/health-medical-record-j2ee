@@ -1,24 +1,24 @@
 package com.medicalcare.dao.impl;
 
 import com.medicalcare.Configuration.HibernateUtil;
-import com.medicalcare.dao.IUserDao;
-import com.medicalcare.model.User;
+import com.medicalcare.dao.IPatientDao;
+import com.medicalcare.model.Patient;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class UserDao implements IUserDao {
+public class PatientDao implements IPatientDao {
 
 
     @Override
-    public User saveUser(User user) {
+    public Patient savePatient(Patient patient) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
-            // save the user object
-            session.save(user);
+            // save the patient object
+            session.save(patient);
             // commit transaction
             transaction.commit();
         } catch (Exception e) {
@@ -27,17 +27,17 @@ public class UserDao implements IUserDao {
             }
             e.printStackTrace();
         }
-        return user;
+        return patient;
     }
 
     @Override
-    public User updateUser(User user) {
+    public Patient updatePatient(Patient patient) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
-            // save the user object
-            session.update(user);
+            // save the patient object
+            session.update(patient);
             // commit transaction
             transaction.commit();
         } catch (Exception e) {
@@ -46,27 +46,27 @@ public class UserDao implements IUserDao {
             }
             e.printStackTrace();
         }
-        return user;
+        return patient;
     }
 
     @Override
-    public List<User> getUsers() {
+    public List<Patient> getPatients() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from User", User.class).list();
+            return session.createQuery("from Patient", Patient.class).list();
         }
     }
 
     @Override
-    public User getUserByUsername(String username) {
+    public Patient getPatientByUsername(String username) {
         Transaction transaction = null;
-        List<User> users = null;
-        User user = null;
+        List<Patient> patients = null;
+        Patient patient = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            users = session.createQuery("select u from User u where u.username = :username")
+            patients = session.createQuery("select u from Patient u where u.username = :username")
                     .setParameter("username", username)
                     .list();
-            if (users.size() > 0) {
-                user = users.get(0);
+            if (patients.size() > 0) {
+                patient = patients.get(0);
             }
         } catch (Exception e) {
             if (transaction != null) {
@@ -74,6 +74,6 @@ public class UserDao implements IUserDao {
             }
             e.printStackTrace();
         }
-        return user;
+        return patient;
     }
 }
