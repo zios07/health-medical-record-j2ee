@@ -21,7 +21,19 @@ public class ProfileController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
+        String page = "/views/patient-home.jsp";
+        MedicalRecord medicalRecord = populateMedicalRecordFromRequest(req);
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute("connectedUser");
+        session.setAttribute("demo", "Jesus is still alive");
+        if (user != null) {
+            Patient patient = patientService.getByUsername(user.getUsername());
+            patient.setMedicalRecord(medicalRecord);
+            patient.setProfileUpdated(true);
+            patient = patientService.updatePatient(patient);
+            session.setAttribute("patient", patient);
+        }
+        req.getServletContext().getRequestDispatcher(page).forward(req, resp);
     }
 
     @Override
@@ -30,12 +42,13 @@ public class ProfileController extends HttpServlet {
         MedicalRecord medicalRecord = populateMedicalRecordFromRequest(req);
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("connectedUser");
-        if(user != null) {
+        session.setAttribute("demo", "Jesus is still alive");
+        if (user != null) {
             Patient patient = patientService.getByUsername(user.getUsername());
             patient.setMedicalRecord(medicalRecord);
             patient.setProfileUpdated(true);
             patient = patientService.updatePatient(patient);
-            session.setAttribute("connectedPatient", patient);
+            session.setAttribute("patient", patient);
         }
         req.getServletContext().getRequestDispatcher(page).forward(req, resp);
     }

@@ -1,6 +1,7 @@
 package com.medicalcare.model;
 
 import javax.persistence.*;
+import java.util.Arrays;
 
 @Entity
 @Table( name = "USER_TABLE")
@@ -129,5 +130,22 @@ public class User {
 
     public void setProfileUpdated(boolean profileUpdated) {
         this.profileUpdated = profileUpdated;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", address2='" + address2 + '\'' +
+                ", role='" + role + '\'' +
+                ", profileUpdated=" + profileUpdated +
+                ", photo=" + Arrays.toString(photo) +
+                '}';
     }
 }

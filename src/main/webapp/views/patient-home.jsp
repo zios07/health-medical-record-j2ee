@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Patient Home</title>
@@ -28,7 +29,7 @@
 <body>
 
 <div class="container">
-    
+
     <h2 align="center">Patient Home</h2>
     <div class="card bg-light text-center container-card">
         <div class="card-header">
@@ -51,24 +52,27 @@
                     <h5 class="card-title">Patient name - Photo</h5>
                     <p class="card-text">Some quick example text to describe the patient profile maybe ?</p>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Username : XXX</li>
-                        <li class="list-group-item">Email : XXX</li>
-                        <li class="list-group-item">Address : XXX</li>
-                        <li class="list-group-item">Address 2 : XXX</li>
+                        <li class="list-group-item">Username : ${sessionScope.patient.username}</li>
+                        <li class="list-group-item">Email : ${sessionScope.patient.email}</li>
+                        <li class="list-group-item">Address : ${sessionScope.patient.address}</li>
+                        <li class="list-group-item">Address 2 : ${sessionScope.patient.address2}</li>
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <h5 class="card-title">Here is you medical record data</h5>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Blood group : XXX</li>
-                        <li class="list-group-item">Allergies : XXX</li>
-                        <li class="list-group-item">Medicines : XXX</li>
-                        <li class="list-group-item">Height : XXX</li>
-                        <li class="list-group-item">Weight : XXX</li>
-                        <li class="list-group-item">Smoker : XXX</li>
-                        <li class="list-group-item">Alcohol consumption : XXX</li>
-                        <li class="list-group-item">Chronic diseases : XXX</li>
-                        <li class="list-group-item">Actual diseases: XXX</li>
+                        <li class="list-group-item">Blood group : ${sessionScope.patient.medicalRecord.bloodGroup}</li>
+                        <li class="list-group-item">Allergies : ${sessionScope.patient.medicalRecord.allergies}</li>
+                        <li class="list-group-item">Medicines : ${sessionScope.patient.medicalRecord.medicines}</li>
+                        <li class="list-group-item">Height : ${sessionScope.patient.medicalRecord.height}</li>
+                        <li class="list-group-item">Weight : ${sessionScope.patient.medicalRecord.weight}</li>
+                        <li class="list-group-item">Smoker : ${sessionScope.patient.medicalRecord.smoker}</li>
+                        <li class="list-group-item">Alcohol consumption
+                            : ${sessionScope.patient.medicalRecord.alcoholConsumption}</li>
+                        <li class="list-group-item">Chronic diseases
+                            : ${sessionScope.patient.medicalRecord.chronicDiseases}</li>
+                        <li class="list-group-item">Actual
+                            diseases: ${sessionScope.patient.medicalRecord.actualDiseases}</li>
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">

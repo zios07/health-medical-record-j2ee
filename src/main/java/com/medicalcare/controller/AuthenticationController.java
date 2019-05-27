@@ -23,7 +23,7 @@ public class AuthenticationController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String page = "/views/patient-home.jsp";
+        String page = null;
         String mode = request.getParameter("mode");
         String userType = request.getParameter("usertype");
         User user = null;
@@ -62,6 +62,11 @@ public class AuthenticationController extends HttpServlet {
             } else {
                 page = "/views/admin-home.jsp";
             }
+        }
+
+        if(page == null) {
+            response.sendRedirect(request.getContextPath() + "/patient-profile");
+            return;
         }
         request.getServletContext().getRequestDispatcher(page).forward(request, response);
     }

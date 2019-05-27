@@ -7,7 +7,7 @@ import java.util.List;
 @Table( name = "PATIENT_TABLE")
 public class Patient extends User {
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Visit> visits;
     @OneToOne(cascade = CascadeType.ALL)
     private MedicalRecord medicalRecord;
@@ -47,5 +47,13 @@ public class Patient extends User {
 
     public void setMedicalRecord(MedicalRecord medicalRecord) {
         this.medicalRecord = medicalRecord;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "visits=" + visits +
+                ", medicalRecord=" + medicalRecord +
+                '}';
     }
 }

@@ -116,4 +116,20 @@ public class MedicalRecord {
     public void setActualDiseases(String actualDiseases) {
         this.actualDiseases = actualDiseases;
     }
+
+    @Override
+    public String toString() {
+        return "MedicalRecord{" +
+                "id=" + id +
+                ", bloodGroup='" + bloodGroup + '\'' +
+                ", allergies='" + allergies + '\'' +
+                ", medicines='" + medicines + '\'' +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", smoker=" + smoker +
+                ", alcoholConsumption='" + alcoholConsumption + '\'' +
+                ", chronicDiseases='" + chronicDiseases + '\'' +
+                ", actualDiseases='" + actualDiseases + '\'' +
+                '}';
+    }
 }
