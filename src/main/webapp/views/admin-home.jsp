@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Admin Home</title>
@@ -33,7 +34,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <form role="form" action="/create-doctor" method="post">
+            <form role="form" action="/admin" method="post">
                 <fieldset>
                     <p class="text-uppercase pull-center"> Create new Doctor</p>
                     <div class="form-group">
@@ -68,7 +69,7 @@
                     </div>
                     <div class="form-group">
                         <input type="text" name="speciality" id="speciality" class="form-control form-control-sm"
-                               placeholder="Speciality">
+                               placeholder="Speciality" required>
                     </div>
                     <div>
                         <input type="submit" class="btn btn-sm btn-outline-primary" value="Create Doctor">
@@ -91,23 +92,15 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td colspan="2">Larry the Bird</td>
-                    <td>@twitter</td>
-                </tr>
+                <c:forEach var="doctor" items="${doctors}">
+                    <tr>
+                        <th scope="row">${ doctor.id}</th>
+                        <td>${ doctor.firstName}</td>
+                        <td>${ doctor.lastName}</td>
+                        <td>${ doctor.email}</td>
+                        <td>${ doctor.speciality}</td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>

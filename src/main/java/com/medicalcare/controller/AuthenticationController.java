@@ -60,7 +60,8 @@ public class AuthenticationController extends HttpServlet {
             } else if (user.getRole().equals("DOCTOR")) {
                 page = "/views/doctor-home.jsp";
             } else {
-                page = "/views/admin-home.jsp";
+                response.sendRedirect(request.getContextPath() + "/admin");
+                return;
             }
         }
 
