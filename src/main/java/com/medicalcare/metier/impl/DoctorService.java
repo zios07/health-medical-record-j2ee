@@ -1,5 +1,7 @@
 package com.medicalcare.metier.impl;
 
+import com.medicalcare.dao.IDoctorDao;
+import com.medicalcare.dao.impl.DoctorDao;
 import com.medicalcare.metier.IDoctorService;
 import com.medicalcare.model.Doctor;
 import com.medicalcare.model.User;
@@ -10,6 +12,7 @@ import java.util.List;
 public class DoctorService implements IDoctorService {
 
     public static final List<Doctor> DOCTORS = new ArrayList<>();
+    private IDoctorDao doctorDao = new DoctorDao();
 
     static {
         User user = new User();
@@ -22,12 +25,12 @@ public class DoctorService implements IDoctorService {
 
     @Override
     public List<Doctor> getDoctors() {
-        return DOCTORS;
+        return doctorDao.getDoctors();
     }
 
     @Override
     public Doctor addDoctor(Doctor doctor) {
-        DOCTORS.add(doctor);
-        return doctor;
+        doctor.setRole("DOCTOR");
+        return doctorDao.saveDoctor(doctor);
     }
 }
