@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <html>
 <head>
@@ -17,20 +18,22 @@
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 
     <style>
-        .container {
-            margin-top: 60px;
-        }
-
         .container-card {
             margin-top: 60px;
         }
+        .doctor-container {
+            margin: 40px 100px 0;
+        }
+
     </style>
 </head>
 <body>
 
-<div class="container">
+<jsp:include page="navbar.jsp" />
 
-    <h2 align="center">Patient Home</h2>
+<h2 align="center">Patient Home</h2>
+
+<div class="doctor-container">
     <div class="card bg-light text-center container-card">
         <div class="card-header">
             <nav class="patient-nav">

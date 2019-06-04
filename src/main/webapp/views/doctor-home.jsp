@@ -9,9 +9,26 @@
 <html>
 <head>
     <title>Doctor Home</title>
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+
+    <style>
+        .doctor-container {
+            margin: 0 100px;
+        }
+
+    </style>
 </head>
 <body>
-<h1>Doctor Home</h1>
+
+<jsp:include page="navbar.jsp"/>
+
+<div class="doctor-container">
+
+    <h1>Doctor Home</h1>
+</div>
 
 </body>
 </html>

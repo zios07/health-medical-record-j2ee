@@ -1,7 +1,5 @@
 package com.medicalcare.metier;
 
-import com.medicalcare.model.Doctor;
-import com.medicalcare.model.Patient;
 import com.medicalcare.model.User;
 
 public interface IUserService {

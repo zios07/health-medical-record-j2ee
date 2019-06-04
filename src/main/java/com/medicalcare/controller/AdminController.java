@@ -12,32 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/doctors")
-public class DoctorController extends HttpServlet {
+@WebServlet("/admin")
+public class AdminController extends HttpServlet {
 
     private IDoctorService doctorService = new DoctorService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String page;
-        String mode = req.getParameter("mode");
-        switch (mode) {
-            case "add":
-                page = "/views/doctor/add-doctor.jsp";
-                break;
-            case "view":
-                page = "/views/doctor/view-doctors.jsp";
-                break;
-            default:
-                page = "/views/admin-home.jsp";
-                break;
-        }
+        String page = "/views/admin-home.jsp";
         List<Doctor> doctors = doctorService.getDoctors();
         req.setAttribute("doctors", doctors);
         req.getServletContext().getRequestDispatcher(page).forward(req, resp);
     }
 
-    // TODO: where is the request comming from ? redirect me back to the same source page of the request please !
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String page = "/views/admin-home.jsp";

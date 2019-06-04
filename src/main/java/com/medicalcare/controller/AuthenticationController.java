@@ -28,7 +28,10 @@ public class AuthenticationController extends HttpServlet {
         String userType = request.getParameter("usertype");
         User user = null;
         if (mode != null) {
-            if (mode.equals("register")) {
+            if (mode.equals("logout")) {
+                response.sendRedirect("/");
+                return;
+            } else if (mode.equals("register")) {
                 // registration business
                 if (request.getParameter("password").equals(request.getParameter("password2"))) {
                     user = patientService.createPatient(new Patient(populateUser(request), null, null));
@@ -53,6 +56,7 @@ public class AuthenticationController extends HttpServlet {
         if (user != null) {
             HttpSession session = request.getSession(true);
             session.setAttribute("connectedUser", user);
+            session.setAttribute("connectedRole", user.getRole());
             request.setAttribute("username", user.getUsername());
             if (user.getRole().equals("PATIENT")) {
                 if (!user.isProfileUpdated())
@@ -65,7 +69,7 @@ public class AuthenticationController extends HttpServlet {
             }
         }
 
-        if(page == null) {
+        if (page == null) {
             response.sendRedirect(request.getContextPath() + "/patient-profile");
             return;
         }
