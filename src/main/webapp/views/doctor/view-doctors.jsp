@@ -37,7 +37,7 @@
     <table class="table table-md table-hover">
         <thead>
         <tr>
-            <th scope="col">ID</th>
+            <th scope="col">Username</th>
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
             <th scope="col">Email</th>
@@ -47,7 +47,7 @@
         <tbody>
         <c:forEach var="doctor" items="${doctors}">
             <tr>
-                <th scope="row">${ doctor.id}</th>
+                <th scope="row">${ doctor.username}</th>
                 <td>${ doctor.firstName}</td>
                 <td>${ doctor.lastName}</td>
                 <td>${ doctor.email}</td>

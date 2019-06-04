@@ -22,17 +22,18 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String page = "/views/patient-home.jsp";
-        MedicalRecord medicalRecord = populateMedicalRecordFromRequest(req);
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("connectedUser");
-        session.setAttribute("demo", "Jesus is still alive");
-        if (user != null) {
-            Patient patient = patientService.getByUsername(user.getUsername());
-            patient.setMedicalRecord(medicalRecord);
-            patient.setProfileUpdated(true);
-            patient = patientService.updatePatient(patient);
-            session.setAttribute("patient", patient);
+        Patient patient = patientService.getByUsername(user.getUsername());
+        if (req.getParameter("login") == null || !Boolean.valueOf(req.getParameter("login"))) {
+            MedicalRecord medicalRecord = populateMedicalRecordFromRequest(req);
+            if (user != null) {
+                patient.setMedicalRecord(medicalRecord);
+                patient.setProfileUpdated(true);
+                patient = patientService.updatePatient(patient);
+            }
         }
+        session.setAttribute("patient", patient);
         req.getServletContext().getRequestDispatcher(page).forward(req, resp);
     }
 

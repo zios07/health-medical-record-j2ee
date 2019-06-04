@@ -70,7 +70,7 @@ public class AuthenticationController extends HttpServlet {
         }
 
         if (page == null) {
-            response.sendRedirect(request.getContextPath() + "/patient-profile");
+            response.sendRedirect(request.getContextPath() + "/patient-profile?login=true");
             return;
         }
         request.getServletContext().getRequestDispatcher(page).forward(request, response);

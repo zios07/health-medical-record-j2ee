@@ -27,7 +27,7 @@
 
 <div class="doctor-container">
 
-    <h1>Doctor Home</h1>
+    <h1 align="center">Doctor Home</h1>
 </div>
 
 </body>
