@@ -8,4 +8,6 @@ public interface IDoctorService {
     List<Doctor> getDoctors();
 
     Doctor addDoctor(Doctor doctor);
+
+    Doctor getDoctorByID(Long doctorID);
 }

@@ -37,7 +37,7 @@ public class DoctorController extends HttpServlet {
         req.getServletContext().getRequestDispatcher(page).forward(req, resp);
     }
 
-    // TODO: where is the request comming from ? redirect me back to the same source page of the request please !
+    // TODO: where is the request coming from ? redirect me back to the same source page of the request please !
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String page = "/views/admin-home.jsp";

@@ -17,14 +17,26 @@ public class NavigationController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String path = "/doctors?mode=";
+        String path = null;
         String requestedPage = req.getParameter("goto");
         switch (requestedPage) {
             case "add-doctor":
-                path += "add";
+                path = "/doctors?mode=add";
                 break;
             case "view-doctors":
-                path += "view";
+                path = "/doctors?mode=view";
+                break;
+            case "book-appointment":
+                path = "/appointments?mode=book";
+                break;
+            case "my-appointments":
+                path = "/appointments?mode=view";
+                break;
+            case "patient-profile":
+                path = "/patient-profile";
+                break;
+            case "doctor-appointments":
+                path = "/appointments?mode=view&role=doctor";
                 break;
         }
         resp.sendRedirect(path);

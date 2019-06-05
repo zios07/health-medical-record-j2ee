@@ -13,4 +13,6 @@ public interface IDoctorDao {
     List<Doctor> getDoctors();
 
     Doctor getDoctorByUsername(String username);
+
+    Doctor getDoctorByID(Long doctorID);
 }

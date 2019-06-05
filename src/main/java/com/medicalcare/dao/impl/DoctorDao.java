@@ -76,4 +76,25 @@ public class DoctorDao implements IDoctorDao {
         }
         return doctor;
     }
+
+    @Override
+    public Doctor getDoctorByID(Long doctorID) {
+        Transaction transaction = null;
+        List<Doctor> doctors = null;
+        Doctor doctor = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            doctors = session.createQuery("select u from Doctor u where u.id = :id")
+                    .setParameter("id", doctorID)
+                    .list();
+            if (doctors.size() > 0) {
+                doctor = doctors.get(0);
+            }
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return doctor;
+    }
 }

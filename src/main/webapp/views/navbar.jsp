@@ -22,10 +22,8 @@
 
     <div class="collapse navbar-collapse" id="navbarsExample09">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
 
+            <!--Admin menu-->
             <c:if test="${sessionScope.get('connectedRole') eq 'ADMIN'}">
                 <li class="nav-item dropdown active">
                     <a class="nav-link dropdown-toggle" id="dropdown09" data-toggle="dropdown"
@@ -39,6 +37,44 @@
                         </button>
                     </form>
                 </li>
+            </c:if>
+
+            <!--Patient menu-->
+            <c:if test="${sessionScope.get('connectedRole') eq 'PATIENT'}">
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" id="dropdown10" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Appointments</a>
+                    <form action="/navigation" method="post" class="dropdown-menu">
+                        <button type="submit" name="goto" class="btn dropdown-item" value="book-appointment">Book new
+                            appointment
+                        </button>
+                        <button type="submit" name="goto" class="btn dropdown-item" value="my-appointments">My
+                            appointments
+                        </button>
+                    </form>
+                </li>
+
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" id="dropdown11" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">My Profile</a>
+                    <form action="/navigation" method="post" class="dropdown-menu">
+                        <button type="submit" name="goto" class="btn dropdown-item" value="patient-profile">View Profile
+                        </button>
+                    </form>
+                </li>
+            </c:if>
+
+            <!--Doctor menu-->
+            <c:if test="${sessionScope.get('connectedRole') eq 'DOCTOR'}">
+                <li class="nav-item dropdown active">
+                    <a class="nav-link dropdown-toggle" id="dropdown12" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Appointments</a>
+                    <form action="/navigation" method="post" class="dropdown-menu">
+                        <button type="submit" name="goto" class="btn dropdown-item" value="doctor-appointments">View Appointments
+                        </button>
+                    </form>
+                </li>
+
             </c:if>
 
 

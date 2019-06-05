@@ -33,4 +33,9 @@ public class DoctorService implements IDoctorService {
         doctor.setRole("DOCTOR");
         return doctorDao.saveDoctor(doctor);
     }
+
+    @Override
+    public Doctor getDoctorByID(Long doctorID) {
+        return doctorDao.getDoctorByID(doctorID);
+    }
 }
