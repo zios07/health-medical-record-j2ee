@@ -53,8 +53,9 @@ public class AppointmentController extends HttpServlet {
                     req.setAttribute("doctors", doctors);
                     break;
                 case "view":
+                    Patient patient = (Patient) session.getAttribute("connectedUser");
                     page = "/views/patient/my-appointments.jsp";
-                    appointments = appointmentService.getAppointments();
+                    appointments = appointmentService.getAppointmentsByUsername(patient.getUsername(), patient.getRole());
                     req.setAttribute("appointments", appointments);
                     break;
             }

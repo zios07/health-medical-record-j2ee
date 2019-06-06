@@ -36,19 +36,19 @@
     <table class="table table-md table-hover">
         <thead>
         <tr>
-            <th align="center" scope="col">Doctor</th>
-            <th align="center" scope="col">Speciality</th>
-            <th align="center" scope="col">Date</th>
-            <th align="center" scope="col">Status</th>
+            <th scope="col">Doctor</th>
+            <th scope="col">Speciality</th>
+            <th scope="col">Date</th>
+            <th scope="col">Status</th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="appointment" items="${appointments}">
             <tr>
-                <td align="center">${ appointment.doctor.firstName} ${ appointment.doctor.lastName}</td>
-                <td align="center">${ appointment.doctor.speciality}</td>
-                <td align="center">${ appointment.date}</td>
-                <td align="center">${ appointment.status}</td>
+                <td>${ appointment.doctor.firstName} ${ appointment.doctor.lastName}</td>
+                <td>${ appointment.doctor.speciality}</td>
+                <td>${ appointment.date}</td>
+                <td>${ appointment.status}</td>
             </tr>
         </c:forEach>
         </tbody>
