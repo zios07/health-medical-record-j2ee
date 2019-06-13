@@ -49,11 +49,15 @@ public class Patient extends User {
         this.medicalRecord = medicalRecord;
     }
 
-    @Override
-    public String toString() {
-        return "Patient{" +
-                "visits=" + visits +
-                ", medicalRecord=" + medicalRecord +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Patient [visits=" + visits + ", medicalRecord=" + medicalRecord + ", getVisits()=" + getVisits()
+				+ ", getMedicalRecord()=" + getMedicalRecord() + ", getId()=" + getId() + ", getUsername()="
+				+ getUsername() + ", getPassword()=" + getPassword() + ", getFirstName()=" + getFirstName()
+				+ ", getLastName()=" + getLastName() + ", getEmail()=" + getEmail() + ", getAddress()=" + getAddress()
+				+ ", getAddress2()=" + getAddress2() + ", getRole()=" + getRole() + ", isProfileUpdated()="
+				+ isProfileUpdated() + ", getBase64Photo()=" + getBase64Photo() + ", toString()=" + super.toString()
+				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+	}
+
 }

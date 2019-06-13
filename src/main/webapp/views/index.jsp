@@ -66,11 +66,11 @@
                                    placeholder="Last Name">
                         </div>
                         <div class="form-group">
-                            <input type="address" name="address" id="address" class="form-control form-control-sm"
+                            <input type="text" name="address" id="address" class="form-control form-control-sm"
                                    placeholder="Address">
                         </div>
                         <div class="form-group">
-                            <input type="address2" name="address2" id="address2" class="form-control form-control-sm"
+                            <input type="text" name="address2" id="address2" class="form-control form-control-sm"
                                    placeholder="Address 2 (Optional)">
                         </div>
                         <div>
