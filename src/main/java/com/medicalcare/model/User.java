@@ -4,11 +4,12 @@ import javax.persistence.*;
 import java.util.Arrays;
 
 @Entity
-@Table( name = "USER_TABLE")
+@Table(name = "USER_TABLE")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private long id;
     @Column(unique = true)
     private String username;
@@ -21,17 +22,17 @@ public class User {
     private String role;
     private boolean profileUpdated;
     @Lob
-    private byte[] photo;
+    private String base64Photo;
 
     public User() {
     }
 
 
     public User(User u) {
-        this(u.username, u.password, u.firstName, u.lastName, u.email, u.address, u.address2, u.role, u.photo, u.profileUpdated);
+        this(u.username, u.password, u.firstName, u.lastName, u.email, u.address, u.address2, u.role, u.base64Photo, u.profileUpdated);
     }
 
-    public User(String username, String password, String firstName, String lastName, String email, String address, String address2, String role, byte[] photo, boolean profileUpdated) {
+    public User(String username, String password, String firstName, String lastName, String email, String address, String address2, String role, String photo, boolean profileUpdated) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -40,7 +41,7 @@ public class User {
         this.address = address;
         this.address2 = address2;
         this.role = role;
-        this.photo = photo;
+        this.base64Photo = photo;
         this.profileUpdated = profileUpdated;
     }
 
@@ -116,20 +117,20 @@ public class User {
         this.role = role;
     }
 
-    public byte[] getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
-    }
-
     public boolean isProfileUpdated() {
         return profileUpdated;
     }
 
     public void setProfileUpdated(boolean profileUpdated) {
         this.profileUpdated = profileUpdated;
+    }
+
+    public String getBase64Photo() {
+        return base64Photo;
+    }
+
+    public void setBase64Photo(String base64Photo) {
+        this.base64Photo = base64Photo;
     }
 
     @Override
@@ -145,7 +146,6 @@ public class User {
                 ", address2='" + address2 + '\'' +
                 ", role='" + role + '\'' +
                 ", profileUpdated=" + profileUpdated +
-                ", photo=" + Arrays.toString(photo) +
                 '}';
     }
 }

@@ -5,6 +5,11 @@ import com.medicalcare.metier.impl.PatientService;
 import com.medicalcare.model.MedicalRecord;
 import com.medicalcare.model.Patient;
 import com.medicalcare.model.User;
+import com.sun.xml.internal.rngom.parse.host.Base;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.IOUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +17,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
+import java.util.Base64;
+import java.util.List;
 
 @WebServlet("/patient-profile")
 public class ProfileController extends HttpServlet {
@@ -48,9 +56,25 @@ public class ProfileController extends HttpServlet {
             Patient patient = patientService.getByUsername(user.getUsername());
             patient.setMedicalRecord(medicalRecord);
             patient.setProfileUpdated(true);
+            try {
+                List<FileItem> multiparts = new ServletFileUpload(
+                        new DiskFileItemFactory()).parseRequest(req);
+
+                for (FileItem item : multiparts) {
+                    if (!item.isFormField()) {
+                        byte[] bytes = IOUtils.toByteArray(item.getInputStream());
+                        byte[] encodedPhoto = Base64.getEncoder().encode(bytes);
+                        patient.setBase64Photo(new String(encodedPhoto, "UTF-8"));
+                    }
+                }
+            } catch (Exception ex) {
+                req.setAttribute("message", "File Upload Failed due to " + ex);
+                page = "/views/patient-profile-update.jsp";
+            }
             patient = patientService.updatePatient(patient);
             session.setAttribute("patient", patient);
         }
+
         req.getServletContext().getRequestDispatcher(page).forward(req, resp);
     }
 

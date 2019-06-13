@@ -35,8 +35,11 @@
 
         <div class="row">
             <div class="col-md-5">
-                <form role="form" action="/patient-profile" method="post">
+                <form role="form" action="/patient-profile" method="post" enctype="multipart/form-data">
                     <fieldset>
+                        <div class="form-group">
+                            <input class="form-control" type="file" name="photo" />
+                        </div>
                         <div class="form-group">
                             <input type="text" name="bloodGroup" id="bloodGroup" class="form-control form-control-sm"
                                    placeholder="Blood Group" required>
@@ -91,6 +94,13 @@
                             </c:if>
                         </div>
 
+                        <div>
+                            <c:if test="${not empty message}">
+                                <span class="alert alert-danger">
+                                    <c:out value="${ message}"/>
+                                </span>
+                            </c:if>
+                        </div>
                     </fieldset>
                 </form>
             </div>

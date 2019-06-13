@@ -55,6 +55,7 @@ public class AuthenticationController extends HttpServlet {
         // Redirection business logic
         if (user != null) {
             HttpSession session = request.getSession(true);
+
             session.setAttribute("connectedUser", user);
             session.setAttribute("connectedRole", user.getRole());
             request.setAttribute("username", user.getUsername());

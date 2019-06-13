@@ -80,7 +80,10 @@
 
         </ul>
 
+        ${sessionScope.get('connectedUser').base64Photo}
         <form class="form-inline my-2 my-md-0" method="post" action="/auth">
+
+            <img alt="img" src="data:image/jpeg;base64,${sessionScope.get('connectedUser').base64Photo}"/>
             <button class="btn btn-outline-danger" value="logout" name="mode" type="submit">Logout</button>
         </form>
     </div>

@@ -27,7 +27,7 @@ public class Patient extends User {
         this.medicalRecord = medicalRecord;
     }
 
-    public Patient(String username, String password, String firstName, String lastName, String email, String address, String address2, String role, byte[] photo, boolean profileUpdated, List<Visit> visits, MedicalRecord medicalRecord) {
+    public Patient(String username, String password, String firstName, String lastName, String email, String address, String address2, String role, String photo, boolean profileUpdated, List<Visit> visits, MedicalRecord medicalRecord) {
         super(username, password, firstName, lastName, email, address, address2, role, photo, profileUpdated);
         this.visits = visits;
         this.medicalRecord = medicalRecord;
