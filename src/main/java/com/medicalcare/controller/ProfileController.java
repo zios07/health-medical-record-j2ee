@@ -51,14 +51,13 @@ public class ProfileController extends HttpServlet {
 		MedicalRecord medicalRecord = populateMedicalRecordFromRequest(req);
 		HttpSession session = req.getSession();
 		User user = (User) session.getAttribute("connectedUser");
-		session.setAttribute("demo", "Jesus is still alive");
 		if (user != null) {
 			Patient patient = patientService.getByUsername(user.getUsername());
 			patient.setMedicalRecord(medicalRecord);
 			patient.setProfileUpdated(true);
 			try {
 				List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(req);
-
+				// TODO: fixme
 				for (FileItem item : multiparts) {
 					if (!item.isFormField()) {
 						byte[] bytes = IOUtils.toByteArray(item.getInputStream());

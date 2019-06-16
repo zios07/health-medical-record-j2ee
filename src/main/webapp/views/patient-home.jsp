@@ -21,6 +21,7 @@
         .container-card {
             margin-top: 60px;
         }
+
         .doctor-container {
             margin: 40px 100px 0;
         }
@@ -29,7 +30,7 @@
 </head>
 <body>
 
-<jsp:include page="navbar.jsp" />
+<jsp:include page="navbar.jsp"/>
 
 <h2 align="center">Patient Home</h2>
 
@@ -52,8 +53,19 @@
 
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                    <h5 class="card-title">Patient name - Photo</h5>
-                    <p class="card-text">Some quick example text to describe the patient profile maybe ?</p>
+                    <form action="/photo-upload" method="post" enctype="multipart/form-data">
+                        <h5 class="card-title">${sessionScope.patient.firstName} ${sessionScope.patient.lastName}
+                        </h5>
+
+                        <img alt="img" width="80"
+                             src="data:image/jpeg;base64,${sessionScope.patient.base64Photo}"
+                             style="margin-left: 30px"/>
+                        <input type="file" id="upload" name="photo"
+                               style="visibility: hidden; font-size: small; width: 1px; height: 1px"/>
+                        <a href="" onclick="document.getElementById('upload').click(); return false">Edit</a>
+                        <button type="submit" class="btn btn-sm btn-outline-success">Save</button>
+                    </form>
+
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Username : ${sessionScope.patient.username}</li>
                         <li class="list-group-item">Email : ${sessionScope.patient.email}</li>
