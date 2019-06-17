@@ -25,7 +25,6 @@ public class AuthenticationController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String page = null;
         String mode = request.getParameter("mode");
-        String userType = request.getParameter("usertype");
         User user = null;
         if (mode != null) {
             if (mode.equals("logout")) {

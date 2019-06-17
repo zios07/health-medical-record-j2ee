@@ -37,46 +37,48 @@
     <div class="col-6 mx-auto">
         <div class="nauk-info-connections text-center">
 
-            <form role="form" action="/admin" method="post">
-                <fieldset>
-                    <div class="form-group">
-                        <input type="text" name="username" id="username" class="form-control form-control-sm"
-                               placeholder="username" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password" id="password" class="form-control form-control-sm"
-                               placeholder="Password" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" id="email" class="form-control form-control-sm"
-                               placeholder="Email Address">
-                    </div>
+            <form role="form" action="/admin" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="photo" classs="form-control"/>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="username" id="username" class="form-control form-control-sm"
+                           placeholder="username" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" id="password" class="form-control form-control-sm"
+                           placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" id="email" class="form-control form-control-sm"
+                           placeholder="Email Address">
+                </div>
 
-                    <div class="form-group">
-                        <input type="text" name="firstName" id="firstName" class="form-control form-control-sm"
-                               placeholder="First Name">
-                    </div>
+                <div class="form-group">
+                    <input type="text" name="firstName" id="firstName" class="form-control form-control-sm"
+                           placeholder="First Name">
+                </div>
 
-                    <div class="form-group">
-                        <input type="text" name="lastName" id="lastName" class="form-control form-control-sm"
-                               placeholder="Last Name">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="address" id="address" class="form-control form-control-sm"
-                               placeholder="Address">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="address2" id="address2" class="form-control form-control-sm"
-                               placeholder="Address 2 (Optional)">
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="speciality" id="speciality" class="form-control form-control-sm"
-                               placeholder="Speciality" required>
-                    </div>
-                    <div>
-                        <input type="submit" class="btn btn-sm btn-outline-primary" value="Create Doctor">
-                    </div>
-                    <br>
+                <div class="form-group">
+                    <input type="text" name="lastName" id="lastName" class="form-control form-control-sm"
+                           placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="address" id="address" class="form-control form-control-sm"
+                           placeholder="Address">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="address2" id="address2" class="form-control form-control-sm"
+                           placeholder="Address 2 (Optional)">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="speciality" id="speciality" class="form-control form-control-sm"
+                           placeholder="Speciality" required>
+                </div>
+                <div>
+                    <input type="submit" class="btn btn-sm btn-outline-primary" value="Create Doctor">
+                </div>
+                <br>
                 </fieldset>
             </form>
         </div>
