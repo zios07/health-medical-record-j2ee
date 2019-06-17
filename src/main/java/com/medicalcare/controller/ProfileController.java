@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.medicalcare.model.Medicine;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -91,9 +92,6 @@ public class ProfileController extends HttpServlet {
                 case "allergies":
                     medicalRecord.setAllergies(multipartField.value);
                     break;
-                case "medicines":
-                    medicalRecord.setMedicines(multipartField.value);
-                    break;
                 case "height":
                     medicalRecord.setHeight(Double.parseDouble(multipartField.value));
                     break;
@@ -113,6 +111,10 @@ public class ProfileController extends HttpServlet {
                     medicalRecord.setActualDiseases(multipartField.value);
                     break;
             }
+            // TODO get each medicine with its start/end dates (depending on the suffix of the field's name attribute)
+            if(multipartField.name.matches("^.+?\\d$")) {
+//                Medicine medicine = null;
+            }
         }
         return medicalRecord;
     }
@@ -123,7 +125,7 @@ public class ProfileController extends HttpServlet {
         String weight = req.getParameter("weight");
         medicalRecord.setBloodGroup(req.getParameter("bloodGroup"));
         medicalRecord.setAllergies(req.getParameter("allergies"));
-        medicalRecord.setMedicines(req.getParameter("medicines"));
+//        medicalRecord.setMedicines(req.getParameter("medicines"));
         medicalRecord.setSmoker(Boolean.valueOf(req.getParameter("smoker")));
         medicalRecord.setAlcoholConsumption(req.getParameter("alcoholConsumption"));
         medicalRecord.setChronicDiseases(req.getParameter("chronicDiseases"));

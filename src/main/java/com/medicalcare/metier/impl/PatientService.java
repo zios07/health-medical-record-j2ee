@@ -24,7 +24,7 @@ public class PatientService implements IPatientService {
 
     @Override
     public Patient getById(Long id) {
-        return null;
+        return patientDao.getPatientById(id);
     }
 
     @Override

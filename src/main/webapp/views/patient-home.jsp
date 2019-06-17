@@ -78,7 +78,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Blood group : ${sessionScope.patient.medicalRecord.bloodGroup}</li>
                         <li class="list-group-item">Allergies : ${sessionScope.patient.medicalRecord.allergies}</li>
-                        <li class="list-group-item">Medicines : ${sessionScope.patient.medicalRecord.medicines}</li>
+<%--                        <li class="list-group-item">Medicines : ${sessionScope.patient.medicalRecord.medicines}</li>--%>
                         <li class="list-group-item">Height : ${sessionScope.patient.medicalRecord.height}</li>
                         <li class="list-group-item">Weight : ${sessionScope.patient.medicalRecord.weight}</li>
                         <li class="list-group-item">Smoker : ${sessionScope.patient.medicalRecord.smoker}</li>

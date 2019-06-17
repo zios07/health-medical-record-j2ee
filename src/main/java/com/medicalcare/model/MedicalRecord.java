@@ -1,9 +1,7 @@
 package com.medicalcare.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "MEDICAL_RECORD_TABLE")
@@ -14,7 +12,8 @@ public class MedicalRecord {
     private long id;
     private String bloodGroup;
     private String allergies;
-    private String medicines;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Medicine> medicines;
     private Double height;
     private Double weight;
     private boolean smoker;
@@ -25,7 +24,7 @@ public class MedicalRecord {
     public MedicalRecord() {
     }
 
-    public MedicalRecord(String bloodGroup, String allergies, String medicines, Double height, Double weight, boolean smoker, String alcoholConsumption, String chronicDiseases, String actualDiseases) {
+    public MedicalRecord(String bloodGroup, String allergies, List<Medicine> medicines, Double height, Double weight, boolean smoker, String alcoholConsumption, String chronicDiseases, String actualDiseases) {
         this.bloodGroup = bloodGroup;
         this.allergies = allergies;
         this.medicines = medicines;
@@ -61,11 +60,11 @@ public class MedicalRecord {
         this.allergies = allergies;
     }
 
-    public String getMedicines() {
+    public List<Medicine> getMedicines() {
         return medicines;
     }
 
-    public void setMedicines(String medicines) {
+    public void setMedicines(List<Medicine> medicines) {
         this.medicines = medicines;
     }
 

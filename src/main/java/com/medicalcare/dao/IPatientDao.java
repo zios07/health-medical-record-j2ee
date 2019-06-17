@@ -13,4 +13,6 @@ public interface IPatientDao {
     List<Patient> getPatients();
 
     Patient getPatientByUsername(String username);
+
+    Patient getPatientById(Long id);
 }

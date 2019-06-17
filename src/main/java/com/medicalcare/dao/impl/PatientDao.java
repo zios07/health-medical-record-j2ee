@@ -76,4 +76,26 @@ public class PatientDao implements IPatientDao {
         }
         return patient;
     }
+
+    @Override
+    public Patient getPatientById(Long id) {
+
+        Transaction transaction = null;
+        List<Patient> patients = null;
+        Patient patient = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            patients = session.createQuery("select u from Patient u where u.id = :id")
+                    .setParameter("id", id)
+                    .list();
+            if (patients.size() > 0) {
+                patient = patients.get(0);
+            }
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return patient;
+    }
 }

@@ -23,6 +23,10 @@
         .title-container {
             margin: 50px;
         }
+
+        .medicine-input {
+            margin-top: 20px;
+        }
     </style>
 </head>
 
@@ -38,10 +42,11 @@
                 <form role="form" action="/patient-profile" method="post" enctype="multipart/form-data">
                     <fieldset>
                         <div class="form-group">
-                            <input class="form-control" type="file" name="photo" />
+                            <input class="form-control" type="file" name="photo"/>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="bloodGroup" id="bloodGroup" class="form-control form-control-sm"
+                            <input type="text" name="bloodGroup" id="bloodGroup"
+                                   class="form-control form-control-sm medicine-input"
                                    placeholder="Blood Group" required>
                         </div>
                         <div class="form-group">
@@ -49,8 +54,18 @@
                                    placeholder="Allergies" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" name="medicines" id="medicines" class="form-control form-control-sm"
-                                   placeholder="Medicines" required>
+                            <div id="medicines">
+                                <input type="text" name="medicines1" class="form-control form-control-sm"
+                                       placeholder="Medicament" required>
+
+                                <input type="date" name="startDate1" class="form-control form-control-sm"
+                                       placeholder="Start Date" required>
+
+                                <input type="date" name="endDate1" class="form-control form-control-sm"
+                                       placeholder="End Date" required>
+                            </div>
+                            <input type="button" id="addrows" name="addrows" class="link"
+                                   value="Ajouter medicament" onclick="add();">
                         </div>
                         <div class="form-group">
                             <input type="number" name="height" id="height" class="form-control form-control-sm"
@@ -62,7 +77,8 @@
                         </div>
                         <div class="form-group">
                             Smoker :
-                            <input type="radio" checked name="smoker" id="smokerFalse" class="form-control form-control-sm"
+                            <input type="radio" checked name="smoker" id="smokerFalse"
+                                   class="form-control form-control-sm"
                                    value="false" required> No
                             <input type="radio" name="smoker" id="smokerTrue" class="form-control form-control-sm"
                                    value="true" required> Yes
@@ -108,6 +124,37 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    let i = 2;
+
+    function add() {
+        const element = document.createElement("input");
+        element.setAttribute("type", "text");
+        element.setAttribute("name", "medicines" + i);
+        element.setAttribute("class", "form-control form-control-sm medicine-input");
+        element.setAttribute("placeholder", "Medicament");
+
+        const element2 = document.createElement("input");
+        element2.setAttribute("type", "date");
+        element2.setAttribute("name", "startDate" + i);
+        element2.setAttribute("class", "form-control form-control-sm medicine-input");
+        element2.setAttribute("placeholder", "Start date");
+
+        const element3 = document.createElement("input");
+        element3.setAttribute("type", "date");
+        element3.setAttribute("name", "endDate" + i);
+        element3.setAttribute("class", "form-control form-control-sm medicine-input");
+        element3.setAttribute("placeholder", "End date");
+
+        const div = document.getElementById("medicines");
+        div.appendChild(element);
+        div.appendChild(element2);
+        div.appendChild(element3);
+        i++;
+    }
+</script>
+
 </body>
 
 

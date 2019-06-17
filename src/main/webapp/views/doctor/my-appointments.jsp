@@ -70,16 +70,11 @@
                         </form>
                     </c:if>
                     <c:if test="${appointment.status eq 'A'}">
-                        <span class="alert alert-success">
-                        <span class="glyphicon glyphicon-exclamation-sign"></span>
-                        <span style="text-align: center">Accepted</span>
-                    </span>
+                        <span class="alert alert-success">Accepted</span>
+                        <a class="btn btn-sm btn-outline-primary" href="/patient-note?patientId=${appointment.patient.id}">Add note</a>
                     </c:if>
                     <c:if test="${appointment.status eq 'R'}">
-                        <span class="alert alert-warning">
-                        <span class="glyphicon glyphicon-exclamation-sign"></span>
-                        <span style="text-align: center">Rejected</span>
-                    </span>
+                        <span class="alert alert-warning">Rejected</span>
                     </c:if>
                 </td>
 
