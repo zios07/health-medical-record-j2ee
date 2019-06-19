@@ -9,6 +9,8 @@ public interface IAppointmentService {
 
     List<Appointment> getAppointments();
 
+    List<Appointment> getAppointmentsByUsername(String username, String role, String status);
+
     List<Appointment> getAppointmentsByUsername(String username, String role);
 
     Appointment createAppointment(Appointment appointment);

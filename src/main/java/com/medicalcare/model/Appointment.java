@@ -19,6 +19,10 @@ public class Appointment {
 
     private Date date;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "note_id")
+    private Note note;
+
     // N : New , A : Accepted, R : Rejected
     private String status;
 
@@ -26,10 +30,11 @@ public class Appointment {
         this.status = "N";
     }
 
-    public Appointment(Doctor doctor, Patient patient, Date date, String status) {
+    public Appointment(Doctor doctor, Patient patient, Date date, Note note, String status) {
         this.doctor = doctor;
         this.patient = patient;
         this.date = date;
+        this.note = note;
         this.status = status;
     }
 
@@ -71,5 +76,13 @@ public class Appointment {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Note getNote() {
+        return note;
+    }
+
+    public void setNote(Note note) {
+        this.note = note;
     }
 }

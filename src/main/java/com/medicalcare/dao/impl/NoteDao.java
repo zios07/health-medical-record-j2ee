@@ -1,27 +1,27 @@
 package com.medicalcare.dao.impl;
 
 import com.medicalcare.Configuration.HibernateUtil;
-import com.medicalcare.dao.IAppointmentDao;
-import com.medicalcare.model.Appointment;
+import com.medicalcare.dao.INoteDao;
+import com.medicalcare.model.Note;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class AppointmentDao implements IAppointmentDao {
+public class NoteDao implements INoteDao {
 
     @Override
-    public List<Appointment> getAppointments() {
+    public List<Note> getNotes() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        return session.createQuery("from Appointment", Appointment.class).list();
+        return session.createQuery("from Note", Note.class).list();
     }
 
     @Override
-    public Appointment saveAppointment(Appointment appointment) {
+    public Note saveNote(Note note) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.save(appointment);
+            session.save(note);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -29,15 +29,15 @@ public class AppointmentDao implements IAppointmentDao {
             }
             e.printStackTrace();
         }
-        return appointment;
+        return note;
     }
 
     @Override
-    public Appointment updateAppointment(Appointment appointment) {
+    public Note updateNote(Note note) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.update(appointment);
+            session.update(note);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -45,15 +45,15 @@ public class AppointmentDao implements IAppointmentDao {
             }
             e.printStackTrace();
         }
-        return appointment;
+        return note;
     }
 
     @Override
-    public void deleteAppointment(Long appointmentID) {
+    public void deleteNote(Long noteID) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.delete(appointmentID);
+            session.delete(noteID);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -64,17 +64,17 @@ public class AppointmentDao implements IAppointmentDao {
     }
 
     @Override
-    public List<Appointment> getAppointmentsByUsername(String username, String role) {
+    public List<Note> getNotesByUsername(String username, String role) {
         Transaction transaction = null;
-        List<Appointment> appointments = null;
+        List<Note> notes = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             String query = null;
             if (role.equals("DOCTOR")) {
-                query = "select a from Appointment a where a.doctor.username = :username";
+                query = "select a from Note a where a.doctor.username = :username";
             } else {
-                query = "select a from Appointment a where a.patient.username = :username";
+                query = "select a from Note a where a.patient.username = :username";
             }
-            appointments = session.createQuery(query)
+            notes = session.createQuery(query)
                     .setParameter("username", username)
                     .list();
         } catch (Exception e) {
@@ -83,16 +83,16 @@ public class AppointmentDao implements IAppointmentDao {
             }
             e.printStackTrace();
         }
-        return appointments;
+        return notes;
     }
 
     @Override
-    public Appointment getAppointmentById(Long appointmentID) {
+    public Note getNoteById(Long noteID) {
         Transaction transaction = null;
-        Appointment appointment = null;
+        Note note = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            appointment = session.find(Appointment.class, appointmentID);
+            note = session.find(Note.class, noteID);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -100,30 +100,6 @@ public class AppointmentDao implements IAppointmentDao {
             }
             e.printStackTrace();
         }
-        return appointment;
-    }
-
-    @Override
-    public List<Appointment> getAppointmentsByUsername(String username, String role, String status) {
-        Transaction transaction = null;
-        List<Appointment> appointments = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String query = null;
-            if (role.equals("DOCTOR")) {
-                query = "select a from Appointment a where a.doctor.username = :username and a.status = :status";
-            } else {
-                query = "select a from Appointment a where a.patient.username = :username and a.status = :status";
-            }
-            appointments = session.createQuery(query)
-                    .setParameter("username", username)
-                    .setParameter("status", status)
-                    .list();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
-        return appointments;
+        return note;
     }
 }

@@ -78,7 +78,7 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Blood group : ${sessionScope.patient.medicalRecord.bloodGroup}</li>
                         <li class="list-group-item">Allergies : ${sessionScope.patient.medicalRecord.allergies}</li>
-<%--                        <li class="list-group-item">Medicines : ${sessionScope.patient.medicalRecord.medicines}</li>--%>
+                        <li class="list-group-item">Medicines : ${sessionScope.patient.medicalRecord.medicines}</li>
                         <li class="list-group-item">Height : ${sessionScope.patient.medicalRecord.height}</li>
                         <li class="list-group-item">Weight : ${sessionScope.patient.medicalRecord.weight}</li>
                         <li class="list-group-item">Smoker : ${sessionScope.patient.medicalRecord.smoker}</li>
@@ -91,7 +91,27 @@
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
-                    doctor visits and notes go here :)
+
+                    <c:forEach var="appointment" items="${appointments}">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <img alt="img" width="80"
+                                     src="data:image/jpeg;base64,${appointment.doctor.base64Photo}"
+                                     style="margin-left: 30px"/>
+                            </li>
+                            <li class="list-group-item"><b>Doctor
+                                : </b> ${appointment.doctor.firstName} ${appointment.doctor.lastName}</li>
+                            <li class="list-group-item"><b>Appointment date : </b> ${appointment.date}</li>
+                            <li class="list-group-item"><b>Note : </b> ${appointment.note.note}</li>
+                            <li class="list-group-item"><b>Medicines
+                                : </b> ${appointment.patient.medicalRecord.medicines}</li>
+                        </ul>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                    </c:forEach>
+
                 </div>
             </div>
         </div>

@@ -16,6 +16,12 @@ public class AppointmentService implements IAppointmentService {
         return appointmentDao.getAppointments();
     }
 
+
+    @Override
+    public List<Appointment> getAppointmentsByUsername(String username, String role, String status) {
+        return appointmentDao.getAppointmentsByUsername(username, role, status);
+    }
+
     @Override
     public List<Appointment> getAppointmentsByUsername(String username, String role) {
         return appointmentDao.getAppointmentsByUsername(username, role);

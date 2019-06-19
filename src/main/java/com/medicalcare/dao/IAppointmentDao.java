@@ -17,4 +17,6 @@ public interface IAppointmentDao {
     List<Appointment> getAppointmentsByUsername(String username, String role);
 
     Appointment getAppointmentById(Long appointmentID);
+
+    List<Appointment> getAppointmentsByUsername(String username, String role, String status);
 }

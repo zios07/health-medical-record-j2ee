@@ -83,7 +83,7 @@ public class AppointmentController extends HttpServlet {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                appointmentService.createAppointment(new Appointment(doctor, patient, bookingDate, "N"));
+                appointmentService.createAppointment(new Appointment(doctor, patient, bookingDate, null, "N"));
                 List<Appointment> appointments = appointmentService.getAppointmentsByUsername(patient.getUsername(), patient.getRole());
                 List<Doctor> doctors = doctorService.getDoctors();
                 List<Long> reservedDoctors = appointments.stream().map(Appointment::getId).collect(Collectors.toList());

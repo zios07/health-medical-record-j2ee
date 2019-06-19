@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.medicalcare.model.Medicine;
+import com.medicalcare.metier.IAppointmentService;
+import com.medicalcare.metier.impl.AppointmentService;
+import com.medicalcare.model.Appointment;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -28,6 +30,7 @@ import com.medicalcare.model.User;
 public class ProfileController extends HttpServlet {
 
     private IPatientService patientService = new PatientService();
+    private IAppointmentService appointmentService = new AppointmentService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,7 +46,9 @@ public class ProfileController extends HttpServlet {
                 patient = patientService.updatePatient(patient);
             }
         }
+        List<Appointment> appointments = appointmentService.getAppointmentsByUsername(patient.getUsername(), patient.getRole(), "A");
         session.setAttribute("patient", patient);
+        req.setAttribute("appointments", appointments);
         req.getServletContext().getRequestDispatcher(page).forward(req, resp);
     }
 
@@ -92,6 +97,9 @@ public class ProfileController extends HttpServlet {
                 case "allergies":
                     medicalRecord.setAllergies(multipartField.value);
                     break;
+                case "medicines":
+                    medicalRecord.setMedicines(multipartField.value);
+                    break;
                 case "height":
                     medicalRecord.setHeight(Double.parseDouble(multipartField.value));
                     break;
@@ -111,10 +119,6 @@ public class ProfileController extends HttpServlet {
                     medicalRecord.setActualDiseases(multipartField.value);
                     break;
             }
-            // TODO get each medicine with its start/end dates (depending on the suffix of the field's name attribute)
-            if(multipartField.name.matches("^.+?\\d$")) {
-//                Medicine medicine = null;
-            }
         }
         return medicalRecord;
     }
@@ -125,7 +129,7 @@ public class ProfileController extends HttpServlet {
         String weight = req.getParameter("weight");
         medicalRecord.setBloodGroup(req.getParameter("bloodGroup"));
         medicalRecord.setAllergies(req.getParameter("allergies"));
-//        medicalRecord.setMedicines(req.getParameter("medicines"));
+        medicalRecord.setMedicines(req.getParameter("medicines"));
         medicalRecord.setSmoker(Boolean.valueOf(req.getParameter("smoker")));
         medicalRecord.setAlcoholConsumption(req.getParameter("alcoholConsumption"));
         medicalRecord.setChronicDiseases(req.getParameter("chronicDiseases"));

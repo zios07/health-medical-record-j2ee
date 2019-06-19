@@ -12,8 +12,7 @@ public class MedicalRecord {
     private long id;
     private String bloodGroup;
     private String allergies;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Medicine> medicines;
+    private String medicines;
     private Double height;
     private Double weight;
     private boolean smoker;
@@ -24,7 +23,7 @@ public class MedicalRecord {
     public MedicalRecord() {
     }
 
-    public MedicalRecord(String bloodGroup, String allergies, List<Medicine> medicines, Double height, Double weight, boolean smoker, String alcoholConsumption, String chronicDiseases, String actualDiseases) {
+    public MedicalRecord(String bloodGroup, String allergies, String medicines, Double height, Double weight, boolean smoker, String alcoholConsumption, String chronicDiseases, String actualDiseases) {
         this.bloodGroup = bloodGroup;
         this.allergies = allergies;
         this.medicines = medicines;
@@ -60,11 +59,11 @@ public class MedicalRecord {
         this.allergies = allergies;
     }
 
-    public List<Medicine> getMedicines() {
+    public String getMedicines() {
         return medicines;
     }
 
-    public void setMedicines(List<Medicine> medicines) {
+    public void setMedicines(String medicines) {
         this.medicines = medicines;
     }
 

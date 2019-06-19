@@ -69,9 +69,15 @@
                             </button>
                         </form>
                     </c:if>
-                    <c:if test="${appointment.status eq 'A'}">
+                    <c:if test="${appointment.status eq 'A' && empty appointment.note}">
                         <span class="alert alert-success">Accepted</span>
-                        <a class="btn btn-sm btn-outline-primary" href="/patient-note?patientId=${appointment.patient.id}">Add note</a>
+                        <a class="btn btn-sm btn-outline-primary"
+                           href="/patient-note?patientId=${appointment.patient.id}&appointmentId=${appointment.id}">Add
+                            note</a>
+                    </c:if>
+                    <c:if test="${appointment.status eq 'A' && !empty appointment.note}">
+                        <span class="alert alert-success">Accepted</span>
+                        <span class="alert alert-success">Already added a note to this appointment</span>
                     </c:if>
                     <c:if test="${appointment.status eq 'R'}">
                         <span class="alert alert-warning">Rejected</span>
