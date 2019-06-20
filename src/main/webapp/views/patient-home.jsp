@@ -66,12 +66,51 @@
                         <button type="submit" class="btn btn-sm btn-outline-success">Save</button>
                     </form>
 
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Username : ${sessionScope.patient.username}</li>
-                        <li class="list-group-item">Email : ${sessionScope.patient.email}</li>
-                        <li class="list-group-item">Address : ${sessionScope.patient.address}</li>
-                        <li class="list-group-item">Address 2 : ${sessionScope.patient.address2}</li>
-                    </ul>
+                    <c:choose>
+                        <c:when test="${not empty action}">
+                            <ul class="list-group list-group-flush">
+                                <div class="container">
+
+                                    <div class="row">
+                                        <div class="col-md-5 col-md-offset-5">
+
+                                        </div>
+                                        <form action="/patient-profile">
+                                            <li class="list-group-item">Username
+                                                : ${sessionScope.patient.username}</li>
+                                            <input type="hidden" class="form-control" name="action"
+                                                   value="perform-edit"/>
+                                            <input type="email" class="form-control" name="email"
+                                                   value="${sessionScope.patient.email}" placeholder="Email"/>
+                                            <input type="text" class="form-control" name="address"
+                                                   value="${sessionScope.patient.address}" placeholder="Address"/>
+                                            <input type="text" class="form-control" name="address2"
+                                                   value="${sessionScope.patient.address2}" placeholder="Address 2"/>
+                                            <button type="submit" class="btn btn-sm btn-outline-success">Save
+                                            </button>
+                                        </form>
+
+                                    </div>
+                                </div>
+
+                            </ul>
+                        </c:when>
+                        <c:otherwise>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Username : ${sessionScope.patient.username}</li>
+                                <li class="list-group-item">Email : ${sessionScope.patient.email}</li>
+                                <li class="list-group-item">Address : ${sessionScope.patient.address}</li>
+                                <li class="list-group-item">Address 2 : ${sessionScope.patient.address2}</li>
+                            </ul>
+
+                            <form action="/patient-profile">
+                                <input type="hidden" class="form-control" name="action"
+                                       value="request-edit"/>
+                                <button type="submit" class="btn btn-sm btn-outline-primary">Edit profile</button>
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
+
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <h5 class="card-title">Here is you medical record data</h5>

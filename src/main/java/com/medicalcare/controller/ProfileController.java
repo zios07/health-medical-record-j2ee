@@ -46,6 +46,26 @@ public class ProfileController extends HttpServlet {
                 patient = patientService.updatePatient(patient);
             }
         }
+
+        String action = req.getParameter("action");
+        if (action != null && !"".equals(action)) {
+            switch (action) {
+                case "request-edit":
+                    req.setAttribute("action", "edit-profile");
+                    page = "/views/patient-home.jsp";
+                    break;
+                case "perform-edit":
+                    String username = req.getParameter("username");
+                    String email = req.getParameter("email");
+                    String address = req.getParameter("address");
+                    String address2 = req.getParameter("address2");
+                    patient.setEmail(email);
+                    patient.setAddress(address);
+                    patient.setAddress2(address2);
+                    patient = patientService.updatePatient(patient);
+                    break;
+            }
+        }
         List<Appointment> appointments = appointmentService.getAppointmentsByUsername(patient.getUsername(), patient.getRole(), "A");
         session.setAttribute("patient", patient);
         req.setAttribute("appointments", appointments);

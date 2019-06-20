@@ -34,7 +34,6 @@ public class PhotoUploadController extends HttpServlet {
             Patient patient = patientService.getByUsername(user.getUsername());
             try {
                 List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(req);
-                // TODO: fixme
                 for (FileItem item : multiparts) {
                     if (!item.isFormField() && item.getSize() > 0) {
                         byte[] bytes = IOUtils.toByteArray(item.getInputStream());
