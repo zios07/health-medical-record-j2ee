@@ -54,14 +54,12 @@ public class NoteController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String page = "/views/doctor/view-appointments.jsp";
         Boolean updateMedicines = Boolean.valueOf(req.getParameter("updateMedicines"));
         if (updateMedicines) {
             String medicines = req.getParameter("medicines");
             patient.getMedicalRecord().setMedicines(medicines);
             patientService.updatePatient(patient);
         }
-        Doctor doctor = (Doctor) req.getSession().getAttribute("connectedUser");
         Note note = new Note(req.getParameter("note"));
         appointment.setNote(note);
         appointmentService.updateAppointment(appointment);

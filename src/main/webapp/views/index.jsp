@@ -260,76 +260,85 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h3 class="register-heading">Create your account</h3>
-                    <div class="row register-form">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <input type="text" name="username" id="username" class="form-control form-control-sm"
-                                       placeholder="username" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="password" id="password"
-                                       class="form-control form-control-sm"
-                                       placeholder="Password" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="password2" id="password2"
-                                       class="form-control form-control-sm"
-                                       placeholder="Password confirmation" required>
-                            </div>
+                    <form role="form" action="/auth" method="post">
+                        <div class="row register-form">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" name="username" id="username"
+                                           class="form-control form-control-sm"
+                                           placeholder="username" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="password"
+                                           class="form-control form-control-sm"
+                                           placeholder="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password2" id="password2"
+                                           class="form-control form-control-sm"
+                                           placeholder="Password confirmation" required>
+                                </div>
 
-                            <div class="form-group">
-                                <input type="email" name="email" id="email" class="form-control form-control-sm"
-                                       placeholder="Email Address">
+                                <div class="form-group">
+                                    <input type="email" name="email" id="email" class="form-control form-control-sm"
+                                           placeholder="Email Address">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <input type="text" name="firstName" id="firstName"
+                                           class="form-control form-control-sm"
+                                           placeholder="First Name">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="text" name="lastName" id="lastName"
+                                           class="form-control form-control-sm"
+                                           placeholder="Last Name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="address" id="address" class="form-control form-control-sm"
+                                           placeholder="Address">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="address2" id="address2"
+                                           class="form-control form-control-sm"
+                                           placeholder="Address 2 (Optional)">
+                                </div>
+                                <div>
+                                    <input type="hidden" name="mode" value="register">
+                                </div>
+                                <input type="submit" class="btnRegister" value="Login"/>
                             </div>
                         </div>
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-                                <input type="text" name="firstName" id="firstName" class="form-control form-control-sm"
-                                       placeholder="First Name">
-                            </div>
-
-                            <div class="form-group">
-                                <input type="text" name="lastName" id="lastName" class="form-control form-control-sm"
-                                       placeholder="Last Name">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="address" id="address" class="form-control form-control-sm"
-                                       placeholder="Address">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="address2" id="address2" class="form-control form-control-sm"
-                                       placeholder="Address 2 (Optional)">
-                            </div>
-                            <div>
-                                <input type="hidden" name="mode" value="register">
-                            </div>
-                            <input type="submit" class="btnRegister" value="Login"/>
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                     <h3 class="register-heading">Sign in</h3>
-                    <div class="row register-form">
-                        <div class="col-md-6">
+                    <form role="form" action="/auth" method="post">
+                        <div class="row register-form">
+                            <div class="col-md-6">
 
-                            <div class="form-group">
-                                <input type="text" name="username" id="lgUsername" class="form-control form-control-sm"
-                                       placeholder="username" required>
+                                <div class="form-group">
+                                    <input type="text" name="username" id="lgUsername"
+                                           class="form-control form-control-sm"
+                                           placeholder="username" required>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <input type="password" name="password" id="lgPassword"
+                                       class="form-control form-control-sm"
+                                       placeholder="Password" required>
                             </div>
 
+                            <div>
+                                <input type="hidden" name="mode" value="login">
+                            </div>
+                            <input type="submit" class="btnRegister" value="Register"/>
                         </div>
-                        <div class="col-md-6">
-                            <input type="password" name="password" id="lgPassword"
-                                   class="form-control form-control-sm"
-                                   placeholder="Password" required>
-                        </div>
-
-                        <div>
-                            <input type="hidden" name="mode" value="login">
-                        </div>
-                        <input type="submit" class="btnRegister" value="Register"/>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
