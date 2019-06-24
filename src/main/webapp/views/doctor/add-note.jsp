@@ -36,7 +36,6 @@
             <fieldset>
                 <div class="row">
                     <div class="col-4 mx-auto">
-                        ${patient.medicalRecord}
                         <ul class="list-group">
                             <li class="list-group-item"><b>First name: </b> ${patient.firstName}</li>
                             <li class="list-group-item"><b>Last name: </b> ${patient.lastName}</li>
@@ -47,16 +46,19 @@
                             <li class="list-group-item"><b>height : </b> ${patient.medicalRecord.height}</li>
                             <li class="list-group-item"><b>Weight : </b> ${patient.medicalRecord.weight}</li>
                             <li class="list-group-item"><b>Smoker : </b> ${patient.medicalRecord.smoker}</li>
-                            <li class="list-group-item"><b>Alcohol consumption : </b> ${patient.medicalRecord.alcoholConsumption}</li>
-                            <li class="list-group-item"><b>Chronic diseases : </b> ${patient.medicalRecord.chronicDiseases}</li>
-                            <li class="list-group-item"><b>Actual diseases : </b> ${patient.medicalRecord.actualDiseases}</li>
+                            <li class="list-group-item"><b>Alcohol consumption
+                                : </b> ${patient.medicalRecord.alcoholConsumption}</li>
+                            <li class="list-group-item"><b>Chronic diseases
+                                : </b> ${patient.medicalRecord.chronicDiseases}</li>
+                            <li class="list-group-item"><b>Actual diseases
+                                : </b> ${patient.medicalRecord.actualDiseases}</li>
                         </ul>
                     </div>
                     <div class="col-8 mx-auto">
 
                         <div class="form-check">
                             <input type="checkbox" name="updateMedicines" class="form-check-input" id="exampleCheck1"
-                                   onclick="document.getElementById('newMedicines').disabled=!this.checked;"/>
+                                   onclick="document.getElementById('newMedicines').disabled=!this.checked; document.getElementById('exampleCheck1').value=this.checked;"/>
                             <label class="form-check-label" for="exampleCheck1">Update medicines</label>
                         </div>
                         <br>
