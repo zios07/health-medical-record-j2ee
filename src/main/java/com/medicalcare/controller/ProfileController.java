@@ -39,9 +39,8 @@ public class ProfileController extends HttpServlet {
         User user = (User) session.getAttribute("connectedUser");
         Patient patient = patientService.getByUsername(user.getUsername());
         if (req.getParameter("login") == null || !Boolean.valueOf(req.getParameter("login"))) {
-            MedicalRecord medicalRecord = populateMedicalRecordFromRequest(req);
+//            MedicalRecord medicalRecord = populateMedicalRecordFromRequest(req);
             if (user != null) {
-                patient.setMedicalRecord(medicalRecord);
                 patient.setProfileUpdated(true);
                 patient = patientService.updatePatient(patient);
             }
