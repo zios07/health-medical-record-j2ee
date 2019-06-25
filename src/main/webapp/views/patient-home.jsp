@@ -13,9 +13,11 @@
     <title>Patient Home</title>
 
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link rel="stylesheet/less" type="text/css" href="../style/app.less"/>
 
     <style>
         .container-card {
@@ -45,6 +47,9 @@
                        aria-controls="nav-profile" aria-selected="false">Medical Record</a>
                     <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
                        aria-controls="nav-contact" aria-selected="false">Doctor Visits</a>
+                    <a class="nav-item nav-link" id="nav-document-tab" data-toggle="tab" href="#nav-documents"
+                       role="tab"
+                       aria-controls="nav-contact" aria-selected="false">Documents</a>
                 </div>
             </nav>
         </div>
@@ -52,6 +57,13 @@
         <div class="card-body">
 
             <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade" id="nav-documents" role="tabpanel" aria-labelledby="nav-document-tab">
+                    <ul class="list-group">
+                        <li>
+                            <button class="btn btn-outline-primary">Upload</button>
+                        </li>
+                    </ul>
+                </div>
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <form action="/photo-upload" method="post" enctype="multipart/form-data">
                         <h5 class="card-title">${sessionScope.patient.firstName} ${sessionScope.patient.lastName}
@@ -114,6 +126,29 @@
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <h5 class="card-title">Here is you medical record data</h5>
+<%--                    <main ng-app="myApp">--%>
+<%--                        <figure ng-controller="graphCtrl">--%>
+<%--                            {{sampleData}}--%>
+<%--                            <div graph data="sampleData">--%>
+<%--                                <div>--%>
+<%--                                    <span data-point></span>--%>
+<%--                                </div>--%>
+<%--                                <div>--%>
+<%--                                    <span data-point></span>--%>
+<%--                                </div>--%>
+<%--                                <div>--%>
+<%--                                    <span data-point></span>--%>
+<%--                                </div>--%>
+<%--                                <div>--%>
+<%--                                    <span data-point></span>--%>
+<%--                                </div>--%>
+<%--                                <div>--%>
+<%--                                    <span data-point></span>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                            <figcaption>Hover a section for details.</figcaption>--%>
+<%--                        </figure>--%>
+<%--                    </main>--%>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Blood group : ${sessionScope.patient.medicalRecord.bloodGroup}</li>
                         <li class="list-group-item">Allergies : ${sessionScope.patient.medicalRecord.allergies}</li>
@@ -156,5 +191,64 @@
         </div>
     </div>
 </div>
+
+<script>
+
+
+    angular.module('myApp', []).directive('graph', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, elm, attr) {
+                var points = elm[0].querySelectorAll('[data-point]');
+
+                // graph data provided by the "data" attribute.
+                // NB: data is interpreted as percentages
+                scope.$watch(attr.data, function (data) {
+                    angular.forEach(data, function (val, i) {
+                        var pt = points[i]
+                            , psty = pt && pt.style;
+
+                        if (psty) {
+                            var sect = pt.parentNode
+                                , sectWidth = sect.offsetWidth
+                                , sectHeight = sect.offsetHeight;
+
+                            sect.title = Math.round(100 - val) + '%';
+                            psty.top = (val * sectHeight / 100) + 'px';
+
+                            var next = data[i + 1];
+                            if (typeof next === 'number') {
+                                var delta = (next - val) * sectHeight / 100;
+
+                                psty.height = Math.sqrt(Math.pow(sectWidth, 2) + Math.pow(delta, 2)) + 'px';
+                                psty.webkitTransform =
+                                    psty.msTransform =
+                                        psty.transform =
+                                            'rotate(' + (-Math.PI / 2 + Math.atan2(delta, sectWidth)) + 'rad)';
+                            }
+                        }
+                    });
+                }, /* deep */ true);
+
+            }
+        };
+    });
+
+    angular.module('myApp').controller('graphCtrl', ['$scope', function ($scope) {
+        $scope.sampleData = [50, 50, 50, 50, 50];
+
+        $scope.sample = function () {
+            for (var i = 0, len = $scope.sampleData.length; i < len; i++) {
+                $scope.sampleData[i] = (Math.random() * 90) + 5;
+            }
+        };
+
+        $scope.sample();
+        $scope.sampler = setInterval(function () {
+            $scope.$apply($scope.sample);
+        }, 2000);
+    }]);
+
+</script>
 </body>
 </html>
