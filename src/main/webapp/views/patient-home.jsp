@@ -12,14 +12,20 @@
 <head>
     <title>Patient Home</title>
 
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.0/angular.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="http://www.chartjs.org/dist/2.6.0/Chart.bundle.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
     <link rel="stylesheet/less" type="text/css" href="../style/app.less"/>
 
     <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+
         .container-card {
             margin-top: 60px;
         }
@@ -126,29 +132,12 @@
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                     <h5 class="card-title">Here is you medical record data</h5>
-<%--                    <main ng-app="myApp">--%>
-<%--                        <figure ng-controller="graphCtrl">--%>
-<%--                            {{sampleData}}--%>
-<%--                            <div graph data="sampleData">--%>
-<%--                                <div>--%>
-<%--                                    <span data-point></span>--%>
-<%--                                </div>--%>
-<%--                                <div>--%>
-<%--                                    <span data-point></span>--%>
-<%--                                </div>--%>
-<%--                                <div>--%>
-<%--                                    <span data-point></span>--%>
-<%--                                </div>--%>
-<%--                                <div>--%>
-<%--                                    <span data-point></span>--%>
-<%--                                </div>--%>
-<%--                                <div>--%>
-<%--                                    <span data-point></span>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <figcaption>Hover a section for details.</figcaption>--%>
-<%--                        </figure>--%>
-<%--                    </main>--%>
+                    <div style="width:75%;margin-left: 200px">
+                        <canvas id="canvas"></canvas>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">Blood group : ${sessionScope.patient.medicalRecord.bloodGroup}</li>
                         <li class="list-group-item">Allergies : ${sessionScope.patient.medicalRecord.allergies}</li>
@@ -192,63 +181,219 @@
     </div>
 </div>
 
+
 <script>
+    docraptorJavaScriptFinished = function() {
+        var chartCanvas = document.getElementById("canvas");
 
+        // do not do anything unless the chart is finished rendering
+        if (chartCanvas == null || chartCanvas.style.length < 1) {
+            return false;
+        }
 
-    angular.module('myApp', []).directive('graph', function () {
-        return {
-            restrict: 'A',
-            link: function (scope, elm, attr) {
-                var points = elm[0].querySelectorAll('[data-point]');
-
-                // graph data provided by the "data" attribute.
-                // NB: data is interpreted as percentages
-                scope.$watch(attr.data, function (data) {
-                    angular.forEach(data, function (val, i) {
-                        var pt = points[i]
-                            , psty = pt && pt.style;
-
-                        if (psty) {
-                            var sect = pt.parentNode
-                                , sectWidth = sect.offsetWidth
-                                , sectHeight = sect.offsetHeight;
-
-                            sect.title = Math.round(100 - val) + '%';
-                            psty.top = (val * sectHeight / 100) + 'px';
-
-                            var next = data[i + 1];
-                            if (typeof next === 'number') {
-                                var delta = (next - val) * sectHeight / 100;
-
-                                psty.height = Math.sqrt(Math.pow(sectWidth, 2) + Math.pow(delta, 2)) + 'px';
-                                psty.webkitTransform =
-                                    psty.msTransform =
-                                        psty.transform =
-                                            'rotate(' + (-Math.PI / 2 + Math.atan2(delta, sectWidth)) + 'rad)';
-                            }
-                        }
-                    });
-                }, /* deep */ true);
-
-            }
-        };
-    });
-
-    angular.module('myApp').controller('graphCtrl', ['$scope', function ($scope) {
-        $scope.sampleData = [50, 50, 50, 50, 50];
-
-        $scope.sample = function () {
-            for (var i = 0, len = $scope.sampleData.length; i < len; i++) {
-                $scope.sampleData[i] = (Math.random() * 90) + 5;
-            }
-        };
-
-        $scope.sample();
-        $scope.sampler = setInterval(function () {
-            $scope.$apply($scope.sample);
-        }, 2000);
-    }]);
-
+        // dump the canvas to an img tag
+        var imageElement = document.createElement("img");
+        imageElement.style = "width: 100%;";
+        imageElement.src = chartCanvas.toDataURL("image/png", 0);
+        chartCanvas.remove();
+        document.body.appendChild(imageElement);
+        return true;
+    }
 </script>
+
+
+
+<script>
+    /* global Chart */
+    /* Based on chartjs.org example at http://www.chartjs.org/samples/latest/charts/line/multi-axis.html */
+
+    'use strict';
+
+    window.chartColors = {
+        red: 'rgb(255, 99, 132)',
+        orange: 'rgb(255, 159, 64)',
+        yellow: 'rgb(255, 205, 86)',
+        green: 'rgb(75, 192, 192)',
+        blue: 'rgb(54, 162, 235)',
+        purple: 'rgb(153, 102, 255)',
+        grey: 'rgb(201, 203, 207)'
+    };
+
+    window.randomScalingFactor = function() {
+        return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.random() * 100;
+    };
+
+    (function(global) {
+        var Months = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+        ];
+
+        var Samples = global.Samples || (global.Samples = {});
+        Samples.utils = {
+            // Adapted from http://indiegamr.com/generate-repeatable-random-numbers-in-js/
+            srand: function(seed) {
+                this._seed = seed;
+            },
+
+            rand: function(min, max) {
+                var seed = this._seed;
+                min = min === undefined ? 0 : min;
+                max = max === undefined ? 1 : max;
+                this._seed = (seed * 9301 + 49297) % 233280;
+                return min + (this._seed / 233280) * (max - min);
+            },
+
+            numbers: function(config) {
+                var cfg = config || {};
+                var min = cfg.min || 0;
+                var max = cfg.max || 1;
+                var from = cfg.from || [];
+                var count = cfg.count || 8;
+                var decimals = cfg.decimals || 8;
+                var continuity = cfg.continuity || 1;
+                var dfactor = Math.pow(10, decimals) || 0;
+                var data = [];
+                var i, value;
+
+                for (i = 0; i < count; ++i) {
+                    value = (from[i] || 0) + this.rand(min, max);
+                    if (this.rand() <= continuity) {
+                        data.push(Math.round(dfactor * value) / dfactor);
+                    } else {
+                        data.push(null);
+                    }
+                }
+
+                return data;
+            },
+
+            labels: function(config) {
+                var cfg = config || {};
+                var min = cfg.min || 0;
+                var max = cfg.max || 100;
+                var count = cfg.count || 8;
+                var step = (max - min) / count;
+                var decimals = cfg.decimals || 8;
+                var dfactor = Math.pow(10, decimals) || 0;
+                var prefix = cfg.prefix || '';
+                var values = [];
+                var i;
+
+                for (i = min; i < max; i += step) {
+                    values.push(prefix + Math.round(dfactor * i) / dfactor);
+                }
+
+                return values;
+            },
+
+            months: function(config) {
+                var cfg = config || {};
+                var count = cfg.count || 12;
+                var section = cfg.section;
+                var values = [];
+                var i, value;
+
+                for (i = 0; i < count; ++i) {
+                    value = Months[Math.ceil(i) % 12];
+                    values.push(value.substring(0, section));
+                }
+
+                return values;
+            },
+
+            transparentize: function(color, opacity) {
+                var alpha = opacity === undefined ? 0.5 : 1 - opacity;
+                return Chart.helpers.color(color).alpha(alpha).rgbString();
+            },
+
+            merge: Chart.helpers.configMerge
+        };
+
+        Samples.utils.srand(Date.now());
+
+    }(this));
+</script>
+<script>
+    var lineChartData = {
+        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        datasets: [{
+            label: "Blood preasure",
+            borderColor: window.chartColors.red,
+            backgroundColor: window.chartColors.red,
+            fill: false,
+            data: [
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor()
+            ],
+            yAxisID: "y-axis-1",
+        }, {
+            label: "Alcohol consumption",
+            borderColor: window.chartColors.blue,
+            backgroundColor: window.chartColors.blue,
+            fill: false,
+            data: [
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor(),
+                randomScalingFactor()
+            ],
+            yAxisID: "y-axis-2"
+        }]
+    };
+
+    window.onload = function() {
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myLine = Chart.Line(ctx, {
+            data: lineChartData,
+            options: {
+                responsive: true,
+                hoverMode: 'index',
+                stacked: false,
+                title: {
+                    display: true,
+                    text: ''
+                },
+                scales: {
+                    yAxes: [{
+                        type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                        display: true,
+                        position: "left",
+                        id: "y-axis-1",
+                    }, {
+                        type: "linear", // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+                        display: true,
+                        position: "right",
+                        id: "y-axis-2",
+
+                        // grid line settings
+                        gridLines: {
+                            drawOnChartArea: false, // only want the grid lines for one axis to show up
+                        },
+                    }],
+                }
+            }
+        });
+    };
+</script>
+
 </body>
 </html>
